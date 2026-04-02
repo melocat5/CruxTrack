@@ -21,7 +21,7 @@ Open a new terminal and go to backend:
 cd backend
 ```
 
-Then run:
+Then run this start your backend server:
 ```bash
 .\mvnw spring-boot:run
 ```
