@@ -9,12 +9,9 @@ Then install dependencies:
 npm install
 ```
 
-Now run Angular:
 ```bash
-ng serve --open
+cd ..
 ```
-
-Click on: http://localhost:4200
 
 Open a new terminal and go to backend:
 ```bash
@@ -25,6 +22,24 @@ Then run this start your backend server:
 ```bash
 .\mvnw spring-boot:run
 ```
+
+```bash
+cd ..
+```
+
+Return to frontend folder:
+```bash
+cd frontend
+```
+
+Now run Angular:
+```bash
+ng serve --open
+```
+
+Click on: http://localhost:4200
+
+
 
 Note that you can only open the application in the frontend.
 
