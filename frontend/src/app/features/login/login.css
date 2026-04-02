@@ -1,3 +1,4 @@
+/* Global styles for the login page */
 :host {
   display: flex;
   justify-content: center;
@@ -10,7 +11,7 @@
   background-position: center;
   background-repeat: no-repeat;
 }
-
+/* Login container styles */
 .login-container {
   background: white;
   padding: 2.5rem 2rem;
@@ -21,21 +22,21 @@
   text-align: center;
   box-sizing: border-box;
 }
-
+/* Login header */
 .login-container h2 {
   margin-top: 0;
   margin-bottom: 1.5rem;
   color: #2c3e50;
   font-weight: 600;
 }
-
+/* Login form styles */
 form {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
   text-align: left;
 }
-
+/* Form labels */
 label {
   display: block;
   margin-bottom: 0.4rem;
@@ -43,7 +44,7 @@ label {
   color: #555;
   font-weight: 500;
 }
-
+/* Form input styles */
 input {
   width: 100%;
   padding: 0.75rem;
@@ -53,13 +54,13 @@ input {
   box-sizing: border-box;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
-
+/* Focus state for inputs */
 input:focus {
   outline: none;
   border-color: #e65100; 
   box-shadow: 0 0 0 3px rgba(230, 81, 0, 0.1);
 }
-
+/* Login button styles */
 button {
   margin-top: 0.5rem;
   padding: 0.75rem;
@@ -72,11 +73,11 @@ button {
   cursor: pointer;
   transition: background-color 0.2s, opacity 0.2s;
 }
-
+/* Hover effect for login button */
 button:hover:not(:disabled) {
   background-color: #fc6f11;
 }
-
+/* Disabled state for login button */
 button:disabled {
   background-color: #f7b768;
   cursor: not-allowed;
