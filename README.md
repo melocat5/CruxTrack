@@ -36,6 +36,11 @@ Now run Angular:
 ```bash
 ng serve --open
 ```
+or
+```bash
+npm start
+```
+
 
 Click on: http://localhost:4200
 
