@@ -35,16 +35,16 @@ cd frontend
 
 Now run Angular:
 ```bash
-ng serve --open
+npm start
 ```
 or
 ```bash
-npm start
+ng serve --open
 ```
 
 Click on: http://localhost:4200
 
-Optional checks:
+# Optional checks:
 Open a new terminal
 ```bash
 cd frontend
@@ -54,7 +54,7 @@ cd frontend
 npm run build
 ```
 
-# Open a new terminal
+Open a new terminal
 ```bash
 cd backend
 ```
