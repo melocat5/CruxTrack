@@ -1,0 +1,96 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: linear-gradient(160deg, #f0f4f8 0%, #e4efff 45%, #fef5e7 100%);
+}
+
+.login-card {
+  width: min(420px, 100%);
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(20, 36, 70, 0.15);
+  padding: 28px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  color: #12223a;
+}
+
+.hint {
+  margin: 10px 0 20px;
+  color: #4d5f7f;
+}
+
+form {
+  display: grid;
+  gap: 10px;
+}
+
+label {
+  color: #1f314f;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+input {
+  border: 1px solid #c3d3ea;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 1rem;
+  outline: none;
+}
+
+input:focus {
+  border-color: #2d6be6;
+  box-shadow: 0 0 0 3px rgba(45, 107, 230, 0.2);
+}
+
+button {
+  margin-top: 8px;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: linear-gradient(120deg, #2d6be6, #104dbf);
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.message {
+  margin: 14px 0 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.error {
+  background: #ffe9e9;
+  color: #9e1f1f;
+}
+
+.success {
+  background: #e7f8eb;
+  color: #176d31;
+}
+
+.credentials {
+  margin: 16px 0 0;
+  color: #3f4d67;
+  font-size: 0.9rem;
+}
