@@ -2,8 +2,7 @@
 - **Node.js** LTS (Recommended: v20.x or latest LTS)
 - **Java** JDK 17 or newer
 
-> This text is indented.
-> 000 Each new line also starts with.
+<pre> ``` This is indented across multiple lines ``` </pre>
 
 # How To Run
 Go into the frontend folder:
