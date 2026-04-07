@@ -2,8 +2,6 @@
 - **Node.js** LTS (Recommended: v20.x or latest LTS)
 - **Java** JDK 17 or newer
 
-<pre> ``` This is indented across multiple lines ``` </pre>
-
 # How To Run
 Go into the frontend folder:
 ```bash
