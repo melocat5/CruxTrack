@@ -1,5 +1,5 @@
 # make sure instal
-Node.js LTSn/n
+Node.js LTS
 Java JDK 17 or newer
 
 # How To Run
