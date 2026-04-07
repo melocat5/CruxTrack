@@ -1,3 +1,7 @@
+# make sure instal
+Node.js LTS
+Java JDK 17 or newer
+
 # How To Run
 Go into the frontend folder:
 ```bash
@@ -9,10 +13,6 @@ Then install dependencies:
 npm install
 ```
 
-```bash
-cd ..
-```
-
 Open a new terminal and go to backend:
 ```bash
 cd backend
@@ -20,14 +20,15 @@ cd backend
 
 Then run this start your backend server:
 ```bash
-.\mvnw spring-boot:run
+.\mvnw.cmd spring-boot:run
 ```
 
+Open a new terminal
 ```bash
-cd ..
+try { Invoke-RestMethod -Method Post -Uri "http://localhost:8080/api/auth/login" -ContentType "application/json" -Body '{"username":"Admin","password":"admin123"}' | ConvertTo-Json -Depth 4 } catch { $_.Exception.Message }
 ```
 
-Return to frontend folder:
+Open a new terminal
 ```bash
 cd frontend
 ```
@@ -41,8 +42,32 @@ or
 npm start
 ```
 
-
 Click on: http://localhost:4200
+
+Optional checks:
+Open a new terminal
+```bash
+cd frontend
+```
+
+```bash
+npm run build
+```
+
+# Open a new terminal
+```bash
+cd backend
+```
+
+```bash
+.\mvnw.cmd test
+```
+
+
+
+
+
+
 
 
 
