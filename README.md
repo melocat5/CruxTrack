@@ -1,6 +1,11 @@
 # make sure instal
 - **Node.js** LTS (Recommended: v20.x or latest LTS)
 - **Java** JDK 17 or newer
+This is line one.␣␣
+This is line two.
+> This text is indented.
+> Each new line also starts with `>`.
+o
 
 # How To Run
 Go into the frontend folder:
