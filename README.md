@@ -1,6 +1,6 @@
 # make sure instal
-Node.js LTS
-Java JDK 17 or newer
+- **Node.js** LTS (Recommended: v20.x or latest LTS)
+- **Java** JDK 17 or newer
 
 # How To Run
 Go into the frontend folder:
