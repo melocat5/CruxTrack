@@ -1,6 +1,19 @@
+# CruxTrack
+> 2026 Spring Semester — SWE4724 Group Project
+
+CruxTrack is a climbing gym management web application for admins to manage rope logs, routes, morning checks, and inventory.
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Frontend | Angular 21 |
+| Backend | Java Spring Boot 4 |
+| Database | SQLite |
+
 # make sure instal
-- **Node.js** LTS (Recommended: v20.x or latest LTS)
-- **Java** JDK 17 or newer
+- **Java 17+** — [Download](https://www.oracle.com/java/technologies/downloads/)
+- **Node.js + npm** — [Download](https://nodejs.org/)
 
 # How To Run
 Go into the frontend folder:
@@ -23,9 +36,18 @@ Then run this start your backend server:
 .\mvnw.cmd spring-boot:run
 ```
 
+**Test the Backend (Optional)**
 Open a new terminal
 ```bash
-try { Invoke-RestMethod -Method Post -Uri "http://localhost:8080/api/auth/login" -ContentType "application/json" -Body '{"username":"Admin","password":"admin123"}' | ConvertTo-Json -Depth 4 } catch { $_.Exception.Message }
+cd backend
+```
+
+```bash
+try {
+  Invoke-RestMethod -Method Post -Uri "http://localhost:8080/api/auth/login" `
+    -ContentType "application/json" `
+    -Body '{"username":"Admin","password":"admin123"}' | ConvertTo-Json -Depth 4
+} catch { $_.Exception.Message }
 ```
 
 Open a new terminal
@@ -73,8 +95,4 @@ cd backend
 
 Note that you can only open the application in the frontend.
 
-# CruxTrack
-2026 Spring Semester SWE4724 Group Project  
-FRONTEND: Angular  
-BACKEND: Java Spring Boot  
-DATABASE: SQLite  
+
