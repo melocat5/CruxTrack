@@ -94,5 +94,5 @@ cd backend
 
 
 Note that you can only open the application in the frontend.
-
+# When making updates to the backend make sure to run all commands
 
