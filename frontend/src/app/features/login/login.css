@@ -83,3 +83,10 @@ button:disabled {
   cursor: not-allowed;
   opacity: 0.7;
 }
+
+/* CRUXTRACK: RED TEXT FOR LOGIN ERROR MESSAGES FROM LOGIN.TS */
+.login-error {
+  margin: 0;
+  color: #b91c1c;
+  font-size: 0.9rem;
+}

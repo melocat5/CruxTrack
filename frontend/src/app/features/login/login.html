@@ -1,15 +1,19 @@
-<!-- Login Component HTML -->
+<!-- CRUXTRACK: REACTIVE FORM — BOUND TO LOGIN.TS; SUBMIT CALLS THE REAL /API/AUTH/LOGIN ENDPOINT -->
 <div class="login-container">
   <h2>Welcome to CruxTrack!</h2>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div>
       <label for="username">Username:</label>
-      <input id="username" type="text" formControlName="username">
+      <input id="username" type="text" formControlName="username" autocomplete="username" />
     </div>
     <div>
       <label for="password">Password:</label>
-      <input id="password" type="password" formControlName="password">
+      <input id="password" type="password" formControlName="password" autocomplete="current-password" />
     </div>
-    <button type="submit" [disabled]="loginForm.invalid">Log In</button>
+    <button type="submit" [disabled]="loginForm.invalid || submitting">Log In</button>
+    <!-- CRUXTRACK: FILLED IN TYPESCRIPT WHEN LOGIN FAILS OR THE SERVER IS UNREACHABLE -->
+    @if (errorMessage) {
+      <p class="login-error">{{ errorMessage }}</p>
+    }
   </form>
 </div>
