@@ -1,1 +1,36 @@
-<router-outlet></router-outlet>
+<!-- REPLACED THE LONG ANGULAR WELCOME PLACEHOLDER AND ROUTER-OUTLET WITH THIS LOGIN UI. -->
+<main class="page">
+  <!-- IF NOT LOGGED IN, SHOW THE LOGIN FORM (CENTERED USERNAME, PASSWORD, GREEN BUTTON). -->
+  @if (!currentRole) {
+    <form class="login-card" (ngSubmit)="login()">
+      <!-- LARGE "CRUXTRACK" TITLE, THEN SMALLER "LOG IN", THEN THE INPUT FIELDS. -->
+      <header class="login-header">
+        <h1 class="login-brand">CruxTrack</h1>
+        <p class="login-subtitle">Log in</p>
+      </header>
+      <input
+        name="username"
+        type="text"
+        placeholder="Username"
+        [(ngModel)]="username"
+      />
+      <input
+        name="password"
+        type="password"
+        placeholder="Password"
+        [(ngModel)]="password"
+      />
+      <button class="login-button" type="submit">Log In</button>
+      @if (errorMessage) {
+        <p class="error-message">{{ errorMessage }}</p>
+      }
+    </form>
+  } @else {
+    <!-- AFTER SUCCESSFUL LOGIN, SHOW A SIMPLE WELCOME AND LOG OUT (PLACEHOLDER UNTIL REAL APP SCREENS EXIST). -->
+    <section class="login-card">
+      <h1 class="welcome-heading">Welcome, {{ currentRole }}</h1>
+      <p>This represents the menu screen the {{ currentRole }} will see after logging in.</p>
+      <button class="login-button" type="button" (click)="logout()">Log Out</button>
+    </section>
+  }
+</main>
