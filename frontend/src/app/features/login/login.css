@@ -1,0 +1,92 @@
+/* Global styles for the login page */
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: "Inter", -apple-system, sans-serif;
+  
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/background.jpg');
+  background-size: cover;        
+  background-position: center;
+  background-repeat: no-repeat;
+}
+/* Login container styles */
+.login-container {
+  background: white;
+  padding: 2.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-sizing: border-box;
+}
+/* Login header */
+.login-container h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+  font-weight: 600;
+}
+/* Login form styles */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  text-align: left;
+}
+/* Form labels */
+label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+  color: #555;
+  font-weight: 500;
+}
+/* Form input styles */
+input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+/* Focus state for inputs */
+input:focus {
+  outline: none;
+  border-color: #e65100; 
+  box-shadow: 0 0 0 3px rgba(230, 81, 0, 0.1);
+}
+/* Login button styles */
+button {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  background-color: #fa9416; 
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, opacity 0.2s;
+}
+/* Hover effect for login button */
+button:hover:not(:disabled) {
+  background-color: #fc6f11;
+}
+/* Disabled state for login button */
+button:disabled {
+  background-color: #f7b768;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* CRUXTRACK: RED TEXT FOR LOGIN ERROR MESSAGES FROM LOGIN.TS */
+.login-error {
+  margin: 0;
+  color: #b91c1c;
+  font-size: 0.9rem;
+}

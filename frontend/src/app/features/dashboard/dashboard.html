@@ -1,0 +1,48 @@
+<!-- CRUXTRACK: SIDEBAR + CONTENT; LOGOUT CALLS AUTH.SERVICE TO HIT /API/AUTH/LOGOUT -->
+<div class="dashboard-layout">
+    <!-- Sidebar Navigation -->
+<nav class="sidebar">
+  <h3>CruxTrack</h3>
+  <ul>
+    <li><a href="#">Rope Log</a></li>
+    <li><a href="#">Route Management</a></li>
+    <li><a href="#">Inventory</a></li>
+    <li><a href="#">User Settings</a></li>
+  </ul>
+  <!-- CRUXTRACK: CLEARS SESSION ON SERVER AND RETURNS TO /LOGIN -->
+  <button type="button" class="logout-button" (click)="auth.logout()">Logout</button>
+</nav>
+
+  <!-- Main Content Area -->
+  <main class="content">
+    <h1>Dashboard</h1>
+    <!-- CRUXTRACK: USER/ROLE COMES FROM /API/AUTH/ME JSON (STORED IN AUTHSERVICE.USER) -->
+    @if (auth.user(); as u) {
+      <p>Signed in as <strong>{{ u.username }}</strong> ({{ u.primaryRole }}).</p>
+    } @else {
+      <p>Welcome back! Here is today's overview.</p>
+    }
+    <!-- Dashboard Cards -->
+    <div class="card-grid">
+      <div class="card">
+        <h3>Active Routes</h3>
+        <!-- Placeholder for route information, this will be replaced with actual data so users can easily see their status -->
+        <p>12 routes currently set in the gym.</p>
+        <button>Manage Routes</button>
+      </div>
+      <!-- Additional cards can be added here for other features like inventory, user settings, etc. -->
+      <div class="card">
+        <h3>Rope Status</h3>
+        <!-- Placeholder for rope status, this will be replaced with actual data so users can easily see their status -->
+        <p>3 ropes require replacement this week.</p>
+        <button>Manage Ropes</button>
+      </div>
+
+      <div class="card">
+        <h3>Morning Checks</h3>
+        <p>Complete daily tasks</p>
+        <button>Start Checks</button>
+      </div>
+    </div>
+  </main>
+</div>
