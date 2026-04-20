@@ -11,7 +11,9 @@ import { Router } from '@angular/router';
   styleUrl: './login.css'
 })
 export class Login {
-  private readonly loginUrl = 'http://localhost:8080/api/auth/login';
+  // Use a relative path so the dev server can proxy requests to the backend.
+  // This avoids hard-coding localhost:8080 and prevents port conflicts in dev.
+  private readonly loginUrl = '/api/auth/login';
 
   readonly username = signal('');
   readonly password = signal('');
@@ -53,8 +55,8 @@ export class Login {
             return;
           }
 
-          const roleLabel = response.role === 'ADMIN' ? 'Admin' : response.role === 'USER' ? 'User' : 'User';
-          this.successMessage.set(`Welcome ${roleLabel}. Login successful.`);
+          localStorage.setItem('role', response.role ?? 'USER');
+          this.successMessage.set(`Welcome ${response.role ?? 'USER'}. Login successful.`);
           this.password.set('');
 
           const redirectUrl = response.redirectUrl || '/dashboard';

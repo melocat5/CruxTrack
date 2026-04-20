@@ -163,3 +163,108 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Spreadsheet test UI */
+.spreadsheet-page {
+  max-width: 1140px;
+  margin: 32px auto;
+  padding: 24px;
+  background: #f8fafc;
+  border-radius: 20px;
+}
+
+.spreadsheet-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.spreadsheet-header h1 {
+  margin: 0 0 8px 0;
+  font-size: 1.65rem;
+  color: #2c2618;
+}
+
+.spreadsheet-header p {
+  margin: 0;
+  color: #5b6470;
+  line-height: 1.5;
+}
+
+.spreadsheet-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.spreadsheet-actions button {
+  padding: 10px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #2c2618;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.spreadsheet-table-wrapper {
+  overflow-x: auto;
+}
+
+.spreadsheet-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.spreadsheet-table th,
+.spreadsheet-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: left;
+}
+
+.spreadsheet-table th {
+  background: #f1f5f9;
+  color: #2c2618;
+  font-weight: 700;
+}
+
+.spreadsheet-table input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #2c2618;
+  background: #ffffff;
+}
+
+.actions-cell {
+  min-width: 180px;
+}
+
+.actions-cell button {
+  margin-right: 8px;
+}
+
+.actions-cell .small {
+  padding: 8px 12px;
+}
+
+.row-status {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #4f5d72;
+  font-size: 0.9rem;
+}
+
+.error {
+  color: #b91c1c;
+}
