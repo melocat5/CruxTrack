@@ -1,0 +1,44 @@
+<main class="page">
+  <section class="login-card">
+    <h1>CruxTrack Login</h1>
+    <p class="hint">Use the built-in credentials to sign in.</p>
+
+    <form (ngSubmit)="onSubmit()" aria-label="Login form">
+      <label for="username">Username</label>
+      <input
+        id="username"
+        name="username"
+        type="text"
+        [ngModel]="username()"
+        (ngModelChange)="username.set($event)"
+        placeholder="Enter username"
+        autocomplete="username"
+      />
+
+      <label for="password">Password</label>
+      <input
+        id="password"
+        name="password"
+        type="password"
+        [ngModel]="password()"
+        (ngModelChange)="password.set($event)"
+        placeholder="Enter password"
+        autocomplete="current-password"
+      />
+
+      <button type="submit" [disabled]="isSubmitting()">
+        {{ isSubmitting() ? 'Signing in...' : 'Login' }}
+      </button>
+    </form>
+
+    @if (errorMessage()) {
+      <p class="message error" role="alert">{{ errorMessage() }}</p>
+    }
+
+    @if (successMessage()) {
+      <p class="message success">{{ successMessage() }}</p>
+    }
+
+    <p class="credentials">Built-in logins: <strong>Admin</strong> / <strong>admin123</strong> and <strong>User</strong> / <strong>user123</strong></p>
+  </section>
+</main>

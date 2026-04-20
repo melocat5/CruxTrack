@@ -1,13 +1,10 @@
-// CRUXTRACK: ROUTE RULES — GUARDS CHECK WITH THE BACKEND WHETHER THE USER IS LOGGED IN BEFORE OPENING A PAGE
 import { Routes } from '@angular/router';
-import { authGuard, guestGuard } from './auth/auth.guard';
-import { Login } from './features/login/login';
-import { Dashboard } from './features/dashboard/dashboard';
+import { Login } from './login/login';
+import { Dashboard } from './dashboard/dashboard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  // CRUXTRACK: IF ALREADY LOGGED IN, GUESTGUARD SENDS YOU TO /DASHBOARD INSTEAD OF SHOWING LOGIN AGAIN
-  { path: 'login', component: Login, canActivate: [guestGuard] },
-  // CRUXTRACK: IF NOT LOGGED IN, AUTHGUARD SENDS YOU TO /LOGIN
-  { path: 'dashboard', component: Dashboard, canActivate: [authGuard] },
+	{ path: '', redirectTo: 'login', pathMatch: 'full' },
+	{ path: 'login', component: Login },
+	{ path: 'dashboard', component: Dashboard },
+	{ path: '**', redirectTo: 'login' }
 ];

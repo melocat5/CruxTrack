@@ -1,6 +1,4 @@
-# CRUXTRACK: IGNORE GENERATED SQLITE FILES SO PASSWORD HASHES AND DATA ARE NOT COMMITTED BY ACCIDENT
 HELP.md
-*.db
 target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
