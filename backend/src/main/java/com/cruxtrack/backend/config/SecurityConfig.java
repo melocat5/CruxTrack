@@ -44,7 +44,9 @@ public class SecurityConfig {
 			// CRUXTRACK: CORS = BROWSER RULES FOR CALLING THIS API FROM A DIFFERENT PORT (E.G. ANGULAR ON 4200)
 			.cors(cors -> cors.configurationSource(corsConfigurationSource()))
 			// CRUXTRACK: CSRF PROTECTION FOR BROWSER APPS — COOKIE + HEADER MUST MATCH ON POST/PUT/DELETE
-			.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+			.csrf(csrf -> csrf.
+				csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+			   .ignoringRequestMatchers("/api/auth/login", "/api/auth/logout"))
 			// CRUXTRACK: CREATE A SESSION WHEN NEEDED (LOGIN) — THAT IS HOW SESSION COOKIES WORK
 			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
 			.authorizeHttpRequests(auth -> auth

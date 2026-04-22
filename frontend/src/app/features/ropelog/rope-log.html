@@ -1,0 +1,68 @@
+<div class="dashboard-layout">
+<!--Dashboard sidebar consistent across other pages-->
+  <nav class="sidebar">
+    <h3>CruxTrack</h3>
+    <ul>
+      <li><a routerLink="/dashboard" style="cursor: pointer;">Dashboard</a></li>
+      <li><a routerLink="/ropelog" style="cursor: pointer; font-weight: bold;">Rope Log</a></li>
+      <li><a href="#">Route Management</a></li>
+      <li><a href="#">Inventory</a></li>
+      <li><a href="#">User Settings</a></li>
+    </ul>
+    <button type="button" class="logout-button" (click)="auth.logout()">Logout</button>
+  </nav>
+
+  <main class="content">
+    <div class="header-actions">
+      <h1>Rope Log</h1>
+      <div class="add-section">
+        <input [(ngModel)]="newRopeId" placeholder="New Rope ID (e.g., A)" class="styled-input" />
+        <button type="button" class="primary-button" (click)="addRope()">+ Add Rope</button>
+      </div>
+    </div>
+
+    <div class="rope-list">
+      
+      <div class="rope-list-header">
+        <div class="col-id">ID</div>
+        <div class="col-status">Status</div>
+        <div class="col-uses">Uses</div>
+        <div class="col-notes">Notes</div>
+        <div class="col-actions">Actions</div>
+      </div>
+
+      <div class="rope-item" *ngFor="let rope of ropes">
+        
+        <div class="col-id">
+          <strong>{{ rope.ropeId }}</strong>
+        </div>
+        <!-- Temporary data for rope replacements, can be replaced with actual rope requirements. Kept numbers low for easy testing-->
+        <div class="col-status">
+          <span class="status-badge" [ngClass]="{'status-replace': rope.uses >= 100, 'status-ok': rope.uses < 100}">
+            {{ rope.uses >= 100 ? 'REPLACE' : 'OK' }}
+          </span>
+        </div>
+        
+        <div class="col-uses uses-control">
+          <button type="button" class="icon-button" (click)="changeUses(rope, -1)">-</button>
+          <span class="uses-count">{{ rope.uses }}</span>
+          <button type="button" class="icon-button" (click)="changeUses(rope, 1)">+</button>
+        </div>
+        
+        <div class="col-notes">
+          <input [(ngModel)]="rope.notes" (change)="saveRope(rope)" placeholder="Add notes..." class="styled-input full-width" />
+        </div>
+
+        <div class="col-actions">
+          <button type="button" *ngIf="rope.uses >= 100" class="action-button warning" (click)="replaceRope(rope)">
+            Replace
+          </button>
+          <button type="button" class="action-button danger" (click)="deleteRope(rope.id)">
+            Delete
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>

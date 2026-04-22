@@ -1,5 +1,5 @@
 // CRUXTRACK: ROOT APP SETTINGS — WE ADDED HTTP CLIENT + XSRF HERE SO LOGIN CAN TALK TO SPRING BOOT SAFELY
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
 import { provideHttpClient, withFetch, withInterceptors, withXsrfConfiguration } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 
@@ -10,6 +10,7 @@ import { credentialsInterceptor } from './auth/credentials.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
     provideBrowserGlobalErrorListeners(),
     provideHttpClient(
       // CRUXTRACK: USES THE BROWSER FETCH API (GOOD FOR SERVER-SIDE RENDERING IN ANGULAR)

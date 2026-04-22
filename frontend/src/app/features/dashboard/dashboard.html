@@ -1,47 +1,52 @@
-<!-- CRUXTRACK: SIDEBAR + CONTENT; LOGOUT CALLS AUTH.SERVICE TO HIT /API/AUTH/LOGOUT -->
 <div class="dashboard-layout">
-    <!-- Sidebar Navigation -->
-<nav class="sidebar">
-  <h3>CruxTrack</h3>
-  <ul>
-    <li><a href="#">Rope Log</a></li>
-    <li><a href="#">Route Management</a></li>
-    <li><a href="#">Inventory</a></li>
-    <li><a href="#">User Settings</a></li>
-  </ul>
-  <!-- CRUXTRACK: CLEARS SESSION ON SERVER AND RETURNS TO /LOGIN -->
-  <button type="button" class="logout-button" (click)="auth.logout()">Logout</button>
-</nav>
+  <nav class="sidebar">
+    <h3>CruxTrack</h3>
+    <ul>
+      <li><a routerLink="/dashboard" style="cursor: pointer; font-weight: bold;">Dashboard</a></li>
+      <li><a routerLink="/ropelog" style="cursor: pointer;">Rope Log</a></li>
+      <li><a href="#">Route Management</a></li>
+      <li><a href="#">Inventory</a></li>
+      <li><a href="#">User Settings</a></li>
+    </ul>
+    <button type="button" class="logout-button" (click)="auth.logout()">Logout</button>
+  </nav>
 
-  <!-- Main Content Area -->
   <main class="content">
     <h1>Dashboard</h1>
-    <!-- CRUXTRACK: USER/ROLE COMES FROM /API/AUTH/ME JSON (STORED IN AUTHSERVICE.USER) -->
+
+    <div *ngIf="urgentReplacements > 0" style="background: #ffebee; color: #c62828; border-left: 4px solid #c62828; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
+      <strong>⚠ URGENT:</strong> You have {{ urgentReplacements }} rope(s) that must be replaced immediately!
+    </div>
+
+    <div *ngIf="soonReplacements > 0" style="background: #fff3e0; color: #ef6c00; border-left: 4px solid #ef6c00; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
+      <strong>⚠ NOTICE:</strong> You have {{ soonReplacements }} rope(s) nearing their 100-use limit.
+    </div>
+
     @if (auth.user(); as u) {
       <p>Signed in as <strong>{{ u.username }}</strong> ({{ u.primaryRole }}).</p>
     } @else {
       <p>Welcome back! Here is today's overview.</p>
     }
-    <!-- Dashboard Cards -->
+    
     <div class="card-grid">
       <div class="card">
         <h3>Active Routes</h3>
-        <!-- Placeholder for route information, this will be replaced with actual data so users can easily see their status -->
         <p>12 routes currently set in the gym.</p>
-        <button>Manage Routes</button>
+        <button type="button">Manage Routes</button>
       </div>
-      <!-- Additional cards can be added here for other features like inventory, user settings, etc. -->
+      
       <div class="card">
         <h3>Rope Status</h3>
-        <!-- Placeholder for rope status, this will be replaced with actual data so users can easily see their status -->
-        <p>3 ropes require replacement this week.</p>
-        <button>Manage Ropes</button>
+        <p *ngIf="urgentReplacements === 0 && soonReplacements === 0">All ropes are currently in good condition.</p>
+        <p *ngIf="urgentReplacements > 0 || soonReplacements > 0">Action required on {{ urgentReplacements + soonReplacements }} rope(s).</p>
+        
+        <button type="button" routerLink="/ropelog">Manage Ropes</button>
       </div>
 
       <div class="card">
         <h3>Morning Checks</h3>
         <p>Complete daily tasks</p>
-        <button>Start Checks</button>
+        <button type="button">Start Checks</button>
       </div>
     </div>
   </main>
