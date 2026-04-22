@@ -6,6 +6,7 @@ body {
 }
 
 
+
 /* Main content area */
 .content {
   flex: 1; 
@@ -33,11 +34,11 @@ body {
 
 /* Individual card styles */
 .card {
-  background-color: #fbedd3;
+  background-color: #f4f4f4;
   border-radius: 8px;
   padding: 1.5rem;
   box-shadow: 0 4px 6px rgba(230, 81, 0, 0.08); 
-  border: 1px solid #fce8d5;
+  border: 1px solid #e6e6e6;
   display: flex;
   flex-direction: column;
 }

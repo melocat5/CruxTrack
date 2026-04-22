@@ -5,6 +5,11 @@
   padding: 30px 40px; 
 }
 
+.content h1 {
+  margin-top: 0;
+  color: #e65100; 
+}
+
 /* Header Area */
 .header-actions {
   display: flex;

@@ -4,7 +4,7 @@
     <ul>
       <li><a routerLink="/dashboard" style="cursor: pointer; font-weight: bold;">Dashboard</a></li>
       <li><a routerLink="/ropelog" style="cursor: pointer;">Rope Log</a></li>
-      <li><a href="#">Route Management</a></li>
+      <li><a routerLink="/routes" style="cursor: pointer;">Route Management</a></li>
       <li><a href="#">Inventory</a></li>
       <li><a href="#">User Settings</a></li>
     </ul>
@@ -18,7 +18,7 @@
       <strong>⚠ URGENT:</strong> You have {{ urgentReplacements }} rope(s) that must be replaced immediately!
     </div>
 
-    <div *ngIf="soonReplacements > 0" style="background: #fff3e0; color: #ef6c00; border-left: 4px solid #ef6c00; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
+    <div *ngIf="soonReplacements > 0" style="background: #fff1cd; color: #ef6c00; border-left: 4px solid #ef6c00; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
       <strong>⚠ NOTICE:</strong> You have {{ soonReplacements }} rope(s) nearing their 100-use limit.
     </div>
 
@@ -31,15 +31,14 @@
     <div class="card-grid">
       <div class="card">
         <h3>Active Routes</h3>
-        <p>12 routes currently set in the gym.</p>
-        <button type="button">Manage Routes</button>
+        <p>{{ activeRoutesCount }} route(s) currently set in the gym.</p>
+        <button type="button" routerLink="/routes">Manage Routes</button>
       </div>
       
       <div class="card">
         <h3>Rope Status</h3>
         <p *ngIf="urgentReplacements === 0 && soonReplacements === 0">All ropes are currently in good condition.</p>
         <p *ngIf="urgentReplacements > 0 || soonReplacements > 0">Action required on {{ urgentReplacements + soonReplacements }} rope(s).</p>
-        
         <button type="button" routerLink="/ropelog">Manage Ropes</button>
       </div>
 

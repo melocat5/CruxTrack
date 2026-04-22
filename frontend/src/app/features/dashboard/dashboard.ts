@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../auth/auth.service';
 import { RopeService } from '../ropelog/rope.service';
+import { RouteService } from '../route-management/route.service'; 
 
 @Component({
   selector: 'app-dashboard',
@@ -14,14 +15,22 @@ import { RopeService } from '../ropelog/rope.service';
 export class Dashboard implements OnInit {
   auth = inject(AuthService);
   ropeService = inject(RopeService);
+  routeService = inject(RouteService); 
 
-  urgentReplacements = 0; // 100+ uses
-  soonReplacements = 0;   // 90-99 uses
+  urgentReplacements = 0;
+  soonReplacements = 0;
+  
+  activeRoutesCount = 0; 
 
   ngOnInit() {
+    // Check Rope Status
     this.ropeService.getRopes().subscribe(ropes => {
       this.urgentReplacements = ropes.filter(r => r.uses >= 100).length;
       this.soonReplacements = ropes.filter(r => r.uses >= 90 && r.uses < 100).length;
+    });
+
+    this.routeService.getRoutes().subscribe(routes => {
+      this.activeRoutesCount = routes.length;
     });
   }
 }

@@ -4,6 +4,7 @@ import { authGuard, guestGuard } from './auth/auth.guard';
 import { Login } from './features/login/login';
 import { Dashboard } from './features/dashboard/dashboard';
 import { RopeLog } from './features/ropelog/rope-log';
+import { RouteManagement } from './features/route-management/route-management';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -12,4 +13,5 @@ export const routes: Routes = [
   // CRUXTRACK: IF NOT LOGGED IN, AUTHGUARD SENDS YOU TO /LOGIN
   { path: 'dashboard', component: Dashboard, canActivate: [authGuard] },
   { path: 'ropelog', component: RopeLog, canActivate: [authGuard] },
+  { path: 'routes', component: RouteManagement, canActivate: [authGuard] },
 ];
