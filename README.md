@@ -1,50 +1,66 @@
-# How To Run
-Go into the frontend folder:
+# How To Run from Zipfile
+# Open a new terminal and go to frontend:
 ```bash
 cd frontend
 ```
-
-Then install dependencies:
+# Install dependencies:
 ```bash
 npm install
 ```
 
-```bash
-cd ..
-```
-
-Open a new terminal and go to backend:
+# Open a new terminal and go to backend:
 ```bash
 cd backend
 ```
-
-Then run this start your backend server:
+# Then run this to start your backend server:
 ```bash
 .\mvnw spring-boot:run
 ```
-
+or
 ```bash
-cd ..
+.\mvnw clean spring-boot:run
 ```
+You should see:
+Tomcat started on port 8080 (http)
+Started BackendApplication
 
-Return to frontend folder:
+# If you see the above message DON'T!
+Ctrl + C
+Press Enter
+This will kill the running process, which will not allows the connection between the fontend & backend
+
+# Open a new terminal and return to frontend:
 ```bash
 cd frontend
 ```
-
-Now run Angular:
-```bash
-ng serve --open
-```
+# To start the program
 or
 ```bash
 npm start
 ```
 
-
 Click on: http://localhost:4200
 
+# If you already downloaded and already ran from Zip
+# Open new Terminal:
+```bash
+cd backend && ./mvnw spring-boot:run
+```
+or
+```bash
+cd backend && ./mvnw spring-boot:run
+```
 
+# If you see "Tomcat started on port 8080 (http)" DON'T!
+Ctrl + C
+Press Enter
+This will kill the running process, which will not allows the connection between the fontend & backend
+
+# Open New Terminal:
+```bash
+cd frontend
+npm start
+```
 
 Note that you can only open the application in the frontend.
 
