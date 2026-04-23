@@ -62,6 +62,22 @@ cd frontend
 npm start
 ```
 
+# Logins
+Admin
+```bash
+Admin
+```
+```bash
+admin123
+```
+Admin
+```bash
+User
+```
+```bash
+user123
+```
+
 Note that you can only open the application in the frontend.
 
 # CruxTrack
