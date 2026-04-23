@@ -62,6 +62,13 @@ cd frontend
 npm start
 ```
 
+# To clear database
+```bash
+cd backend
+Remove-Item cruxtrack.db
+./mvnw spring-boot:run
+```
+
 # Logins
 Admin
 ```bash
