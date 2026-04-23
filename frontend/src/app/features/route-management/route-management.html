@@ -44,14 +44,14 @@
 
     <div class="rope-list" style="margin-top: 30px;">
       
-      <div class="rope-list-header">
+    <div class="rope-list-header">
         <div class="col-name">Name</div>
         <div class="col-grade">Grade</div>
         <div class="col-color">Hold Color</div>
         <div class="col-type">Type / Start</div>
         <div class="col-setter">Setter</div>
         <div class="col-date">Date Set</div>
-        <div class="col-actions">Actions</div>
+        <div class="col-status">Status</div> <div class="col-actions">Actions</div>
       </div>
 
       <div class="rope-item" *ngFor="let route of routes">
@@ -64,7 +64,16 @@
           <div class="col-setter">{{ route.routeSetter }}</div>
           <div class="col-date">{{ route.dateSet | date:'shortDate' }}</div>
           
+          <div class="col-status">
+            <span class="status-badge" [ngClass]="route.isActive ? 'status-ok' : 'status-replace'">
+              {{ route.isActive ? 'Active' : 'Inactive' }}
+            </span>
+          </div>
+
           <div class="col-actions">
+            <button type="button" class="action-button" (click)="toggleActiveStatus(route)" style="margin-right: 8px;">
+              {{ route.isActive ? 'Deactivate' : 'Reactivate' }}
+            </button>
             <button type="button" class="action-button" (click)="editRoute(route.id)" style="margin-right: 8px;">Edit</button>
             <button type="button" class="action-button danger" (click)="deleteRoute(route.id)">Delete</button>
           </div>

@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface ClimbRoute {
   id?: number;
@@ -10,48 +11,27 @@ export interface ClimbRoute {
   startType: string; 
   routeSetter: string;
   dateSet: string;
+  isActive: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
 export class RouteService {
-  
-  // MOCK DATABASE FOR FRONTEND TESTING
-  private mockRoutes: ClimbRoute[] = [
-    { id: 1, routeName: 'ABC', grade: 'V4', holdColor: 'Red', climbType: 'Bouldering', startType: 'Matched', routeSetter: 'admin', dateSet: '2026-04-20' },
-    { id: 2, routeName: 'XYZ', grade: '5.9', holdColor: 'Blue', climbType: 'Tower', startType: 'Two-handed', routeSetter: 'user', dateSet: '2026-04-18' }
-  ];
-  
-  private nextId = 3;
+  private readonly http = inject(HttpClient);
+  private readonly apiUrl = 'http://localhost:8080/api/routes';
 
   getRoutes(): Observable<ClimbRoute[]> {
-    return of([...this.mockRoutes]); 
+    return this.http.get<ClimbRoute[]>(this.apiUrl);
   }
 
   addRoute(route: Partial<ClimbRoute>): Observable<ClimbRoute> {
-    const newRoute: ClimbRoute = {
-      id: this.nextId++,
-      routeName: route.routeName || 'Unnamed Route',
-      grade: route.grade || 'V0',
-      holdColor: route.holdColor || 'Unknown',
-      climbType: route.climbType || 'Bouldering',
-      startType: route.startType || 'Matched',
-      routeSetter: route.routeSetter || 'Unknown',
-      dateSet: route.dateSet || new Date().toISOString().split('T')[0] // Defaults to today
-    };
-    this.mockRoutes.push(newRoute);
-    return of(newRoute);
+    return this.http.post<ClimbRoute>(this.apiUrl, route);
   }
 
   updateRoute(updatedRoute: ClimbRoute): Observable<ClimbRoute> {
-    const index = this.mockRoutes.findIndex(r => r.id === updatedRoute.id);
-    if (index > -1) {
-      this.mockRoutes[index] = { ...updatedRoute };
-    }
-    return of(updatedRoute);
+    return this.http.put<ClimbRoute>(`${this.apiUrl}/${updatedRoute.id}`, updatedRoute);
   }
 
   deleteRoute(id: number): Observable<void> {
-    this.mockRoutes = this.mockRoutes.filter(r => r.id !== id);
-    return of(void 0);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

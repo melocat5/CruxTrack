@@ -1,9 +1,10 @@
-import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectorRef, PLATFORM_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { RouteService, ClimbRoute } from './route.service';
 import { AuthService } from '../../auth/auth.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-route-management',
@@ -16,6 +17,7 @@ export class RouteManagement implements OnInit {
   routeService = inject(RouteService);
   auth = inject(AuthService);
   cdr = inject(ChangeDetectorRef);
+  platformId = inject(PLATFORM_ID);
 
   routes: ClimbRoute[] = [];
   
@@ -30,12 +32,15 @@ export class RouteManagement implements OnInit {
   // Tracks which row is currently in "Edit Mode"
   editingId: number | null = null;
 
-  ngOnInit() {
-    this.loadRoutes();
-    // Auto-fill the setter input with whoever is currently logged in!
-    const user = this.auth.user();
-    if (user) {
-       this.newSetter = user.username;
+ ngOnInit() {
+
+    if (isPlatformBrowser(this.platformId)) {
+      this.loadRoutes();
+      
+      const user = this.auth.user();
+      if (user) {
+         this.newSetter = user.username;
+      }
     }
   }
 
@@ -56,7 +61,8 @@ export class RouteManagement implements OnInit {
       climbType: this.newClimbType,
       startType: this.newStartType,
       routeSetter: this.newSetter,
-      dateSet: new Date().toISOString().split('T')[0]
+      dateSet: new Date().toISOString().split('T')[0],
+      isActive: true
     }).subscribe(() => {
       // Clear inputs after saving
       this.newName = '';
@@ -82,6 +88,15 @@ export class RouteManagement implements OnInit {
   saveEdit(route: ClimbRoute) {
     this.routeService.updateRoute(route).subscribe(() => {
       this.editingId = null; // Turns off edit mode
+      this.cdr.detectChanges();
+    });
+  }
+
+  toggleActiveStatus(route: ClimbRoute) {
+    // Flip the boolean
+    route.isActive = !route.isActive;
+    // Save to the database
+    this.routeService.updateRoute(route).subscribe(() => {
       this.cdr.detectChanges();
     });
   }
