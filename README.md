@@ -48,7 +48,7 @@ cd backend && ./mvnw spring-boot:run
 ```
 or
 ```bash
-cd backend && ./mvnw spring-boot:run
+cd backend && clean ./mvnw spring-boot:run
 ```
 
 # If you see "Tomcat started on port 8080 (http)" DON'T!
