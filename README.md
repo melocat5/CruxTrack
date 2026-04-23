@@ -83,22 +83,6 @@ npm start
 
 Click on: http://localhost:4200
 
-# Logins
-Admin
-```bash
-Admin
-```
-```bash
-admin123
-```
-Admin
-```bash
-User
-```
-```bash
-user123
-```
-
 Return to frontend folder:
 ```bash
 cd frontend
