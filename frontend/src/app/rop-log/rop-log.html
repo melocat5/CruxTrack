@@ -1,0 +1,79 @@
+<section class="spreadsheet-page">
+  <header class="spreadsheet-header">
+    <div>
+      <h1>Rope Log Test Spreadsheet</h1>
+      <p>Enter rope status, uses, totals, and notes. Use Save to send data to the backend.</p>
+    </div>
+    <div class="spreadsheet-actions">
+      <button type="button" (click)="addRow()">Add Row</button>
+      <button type="button" (click)="saveAll()">Save All</button>
+      <button type="button" class="logout-button" (click)="goBack()">Return</button>
+    </div>
+  </header>
+
+  <div class="spreadsheet-table-wrapper">
+    <table class="spreadsheet-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Status</th>
+          <th>+/- Uses</th>
+          <th>Total Uses</th>
+          <th>Notes</th>
+          <th>Date</th>
+          <th>Save</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of rows(); let i = index">
+          <td>{{ i + 1 }}</td>
+          <td><input [(ngModel)]="row.status" placeholder="Status" /></td>
+          <td><input type="number" [(ngModel)]="row.usesChange" /></td>
+          <td><input type="number" [(ngModel)]="row.totalUses" /></td>
+          <td><input [(ngModel)]="row.notes" placeholder="Notes" /></td>
+          <td><input type="date" [(ngModel)]="row.usageDate" /></td>
+          <td class="actions-cell">
+            <button type="button" (click)="saveRow(row, i)" [disabled]="row.saving">Save</button>
+            <button type="button" class="small" (click)="removeRow(i)">Remove</button>
+            <div class="row-status">
+              <span *ngIf="row.saving">Saving…</span>
+              <span *ngIf="row.saved">Saved</span>
+              <span class="error" *ngIf="row.error">{{ row.error }}</span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="spreadsheet-table-wrapper" *ngIf="savedRows().length > 0">
+    <h2>Saved Rows</h2>
+    <table class="spreadsheet-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Status</th>
+          <th>+/- Uses</th>
+          <th>Total Uses</th>
+          <th>Notes</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of savedRows(); let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ row.status }}</td>
+          <td><input type="number" [(ngModel)]="row.usesChange" placeholder="Uses Change" /></td>
+          <td>{{ row.totalUses }}</td>
+          <td><input [(ngModel)]="row.notes" placeholder="Notes" /></td>
+          <td>{{ row.usageDate }}</td>
+          <td class="actions-cell">
+            <button type="button" (click)="updateRow(row)">Save</button>
+            <button type="button" class="small" (click)="deleteSavedRow(row)">Remove</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

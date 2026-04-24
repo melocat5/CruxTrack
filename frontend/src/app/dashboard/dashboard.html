@@ -1,0 +1,41 @@
+<main class="dashboard-page">
+  <header class="dashboard-header">
+    <div class="header-content">
+      <h1 class="dashboard-title">CruxTrack Dashboard</h1>
+      <button type="button" class="logout-button" (click)="logout()">Log Out</button>
+    </div>
+  </header>
+
+  <section class="dashboard-container">
+    <div class="welcome-card">
+      <h2 class="welcome-heading">Welcome Back to CruxTrack</h2>
+      <p class="welcome-message">You are successfully logged in as {{ role }}. Use the menu below to navigate.</p>
+    </div>
+
+    <div class="features-section">
+      <p class="features-label">Available Features</p>
+      <div class="features-grid">
+        <div class="feature-item">
+          <h3 class="feature-title">Rope Log</h3>
+          <p class="feature-description">Track and manage rope inventory and maintenance logs.</p>
+            <button type="button" class="logout-button" (click)="viewRopeLog()">View</button>
+        </div>
+        <div class="feature-item">
+          <h3 class="feature-title">View/Edit Routes</h3>
+          <p class="feature-description">Browse and modify climbing routes in the system.</p>
+            <button type="button" class="logout-button" (click)="vieweditroutes()">View</button>
+        </div>
+        <div class="feature-item">
+          <h3 class="feature-title">Morning Checks</h3>
+          <p class="feature-description">Complete daily safety checks and inspections.</p>
+            <button type="button" class="logout-button" (click)="morningchecks()">View</button>
+        </div>
+        <div class="feature-item">
+          <h3 class="feature-title">View Inventory</h3>
+          <p class="feature-description">Monitor current inventory levels and stock status.</p>
+            <button type="button" class="logout-button" (click)="viewinventory()">View</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

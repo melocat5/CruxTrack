@@ -1,0 +1,132 @@
+/* ADDED THIS FILE (IT WAS MISSING BEFORE); STYLES THE CENTERED LOGIN PAGE AND BUTTONS. */
+
+/* FULL VIEWPORT HEIGHT; FLEX CENTERS THE LOGIN CARD ON THE SCREEN. */
+.page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  background-color: #f4f6f8;
+}
+
+/* WHITE CARD WITH SHADOW HOLDING THE FORM OR THE POST-LOGIN MESSAGE (LARGER FOR MORE ROOM). */
+.login-card {
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 48px 44px;
+  border-radius: 16px;
+  background-color: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* LARGE APP NAME AND SMALLER "LOG IN" LINE ABOVE THE USERNAME AND PASSWORD FIELDS. */
+.login-header {
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.login-brand {
+  margin: 0;
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: #2c2618;
+}
+
+.login-subtitle {
+  margin: 6px 0 0 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #000000;
+}
+
+.hint {
+  margin: 8px 0 0 0;
+  font-size: 0.95rem;
+  color: #5b6470;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.login-form label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #3f3a32;
+}
+
+.welcome-heading {
+  margin: 0 0 4px 0;
+  text-align: center;
+  font-size: 1.4rem;
+}
+
+/* USERNAME AND PASSWORD TEXT BOXES. */
+input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #fcfbf8;
+  color: #1f2937;
+}
+
+input:focus {
+  outline: 2px solid #d9cbb3;
+  outline-offset: 2px;
+  border-color: #d9cbb3;
+}
+
+/* PASTEL TAN "LOG IN" / "LOG OUT" BUTTON (DARK TEXT FOR READABILITY ON LIGHT TAN). */
+.login-button {
+  width: 100%;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 8px;
+  background-color: #e8dcc8;
+  color: #2c2618;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.login-button:hover {
+  background-color: #d9cbb3;
+}
+
+.login-button:disabled {
+  cursor: wait;
+  opacity: 0.8;
+}
+
+.error-message,
+.success-message {
+  margin: 2px 0 0 0;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* RED TEXT WHEN LOGIN FAILS. */
+.error-message {
+  color: #b91c1c;
+}
+
+.success-message {
+  color: #365314;
+}
+
+.credentials {
+  margin: 0;
+  text-align: center;
+  font-size: 0.92rem;
+  color: #5b6470;
+}

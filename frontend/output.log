@@ -1,0 +1,6 @@
+
+> frontend@0.0.0 start
+> ng serve --proxy-config proxy.conf.json
+
+An unhandled exception occurred: Port 4200 is already in use. Use '--port' to specify a different port.
+See "C:\Users\amega\AppData\Local\Temp\ng-UZp8nz\angular-errors.log" for further details.
