@@ -1,0 +1,131 @@
+<div class="dashboard-layout">
+  <nav class="sidebar">
+    <h3>CruxTrack</h3>
+    <ul>
+      <li><a routerLink="/dashboard" style="cursor: pointer;">Dashboard</a></li>
+      <li><a routerLink="/morning-checks" style="cursor: pointer;">Morning Checks</a></li>
+      <li><a routerLink="/ropelog" style="cursor: pointer;">Rope Log</a></li>
+      <li><a routerLink="/routes" style="cursor: pointer;">Route Management</a></li>
+      <li><a routerLink="/inventory" style="cursor: pointer;">Inventory</a></li>
+      <li><a routerLink="/settings" style="cursor: pointer; font-weight: bold;">User Settings</a></li>
+    </ul>
+    <button type="button" class="logout-button" (click)="auth.logout()">Logout</button>
+  </nav>
+
+  <main class="content">
+    <h1>User Settings</h1>
+
+    <div class="tabs-container" *ngIf="isAdmin">
+      <button class="tab-button" [class.active]="activeTab === 'profile'" (click)="setTab('profile')">My Profile</button>
+      <button class="tab-button" [class.active]="activeTab === 'create'" (click)="setTab('create')">Create Account</button>
+      <button class="tab-button" [class.active]="activeTab === 'manage'" (click)="setTab('manage')">Manage Users</button>
+    </div>
+
+    <div *ngIf="activeTab === 'profile'" class="tab-content">
+      <div class="card settings-card" *ngIf="profile">
+        <h3>Personal Details</h3>
+        <p class="role-badge">{{ profile.role }}</p>
+        
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Legal First Name (View Only)</label>
+            <input [value]="profile.firstName" disabled class="styled-input disabled-input" />
+          </div>
+          <div class="form-group">
+            <label>Legal Last Name (View Only)</label>
+            <input [value]="profile.lastName" disabled class="styled-input disabled-input" />
+          </div>
+          <div class="form-group">
+            <label>Username</label>
+            <input [(ngModel)]="profile.username" class="styled-input" />
+          </div>
+          <div class="form-group">
+            <label>Preferred Name</label>
+            <input [(ngModel)]="profile.preferredName" placeholder="Optional" class="styled-input" />
+          </div>
+        </div>
+        
+        <button class="primary-button" style="margin-top: 15px;" (click)="saveProfile()">Save Profile</button>
+        <span class="success-msg" *ngIf="profileMessage">{{ profileMessage }}</span>
+      </div>
+
+      <div class="card settings-card" style="margin-top: 20px;">
+        <h3>Change Password</h3>
+        <div class="form-group" style="max-width: 400px;">
+          <label>Current Password</label>
+          <input type="password" [(ngModel)]="pwCurrent" class="styled-input full-width" />
+        </div>
+        <div class="form-group" style="max-width: 400px;">
+          <label>New Password</label>
+          <input type="password" [(ngModel)]="pwNew" class="styled-input full-width" />
+        </div>
+        <div class="form-group" style="max-width: 400px;">
+          <label>Confirm New Password</label>
+          <input type="password" [(ngModel)]="pwConfirm" class="styled-input full-width" />
+        </div>
+        
+        <button class="primary-button" style="margin-top: 15px;" (click)="updatePassword()">Update Password</button>
+        <p class="status-msg" *ngIf="pwMessage" [class.error]="pwMessage.includes('match') || pwMessage.includes('Failed')">{{ pwMessage }}</p>
+      </div>
+    </div>
+
+    <div *ngIf="activeTab === 'create' && isAdmin" class="tab-content">
+      <div class="card settings-card">
+        <h3>Register New Employee</h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>First Name</label>
+            <input [(ngModel)]="newAcc.firstName" class="styled-input" />
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input [(ngModel)]="newAcc.lastName" class="styled-input" />
+          </div>
+          <div class="form-group">
+            <label>Username</label>
+            <input [(ngModel)]="newAcc.username" class="styled-input" />
+          </div>
+          <div class="form-group">
+            <label>Temporary Password</label>
+            <input type="password" [(ngModel)]="newAcc.password" class="styled-input" />
+          </div>
+          <div class="form-group">
+            <label>Account Role</label>
+            <select [(ngModel)]="newAcc.role" class="styled-input">
+              <option value="USER">User (Staff)</option>
+              <option value="ADMIN">Admin (Manager)</option>
+            </select>
+          </div>
+        </div>
+        <button class="primary-button" style="margin-top: 15px;" (click)="createNewAccount()">Create Account</button>
+        <p class="status-msg" *ngIf="createMessage">{{ createMessage }}</p>
+      </div>
+    </div>
+
+    <div *ngIf="activeTab === 'manage' && isAdmin" class="tab-content">
+      <div class="user-list card">
+        <div class="list-header">
+          <div class="col-name">Name</div>
+          <div class="col-user">Username</div>
+          <div class="col-role">Role</div>
+          <div class="col-status">Status</div>
+          <div class="col-action">Actions</div>
+        </div>
+        <div class="list-item" *ngFor="let u of allUsers">
+          <div class="col-name"><strong>{{ u.firstName }} {{ u.lastName }}</strong></div>
+          <div class="col-user">{{ u.username }}</div>
+          <div class="col-role"><span class="badge">{{ u.role }}</span></div>
+          <div class="col-status">
+            <span [class]="u.isActive ? 'text-green' : 'text-red'">{{ u.isActive ? 'Active' : 'Inactive' }}</span>
+          </div>
+          <div class="col-action">
+            <button class="action-button danger" *ngIf="u.isActive && u.username !== profile?.username" (click)="deactivateAccount(u)">
+              Deactivate
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>

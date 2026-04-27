@@ -30,7 +30,7 @@ public class UserDataLoader implements ApplicationRunner {
 			return;
 		}
 		// CRUXTRACK: PASSWORDS BELOW ARE ONLY FOR FIRST RUN — CHANGE THEM IN REAL DEPLOYMENTS
-		users.save(new AppUser("admin", passwordEncoder.encode("AdminPass1!"), Role.ADMIN));
-		users.save(new AppUser("user", passwordEncoder.encode("UserPass1!"), Role.USER));
+		users.save(new AppUser("admin", passwordEncoder.encode("AdminPass1!"), Role.ADMIN, "System", "Admin"));
+		users.save(new AppUser("user", passwordEncoder.encode("UserPass1!"), Role.USER, "Gym", "Staff"));
 	}
 }

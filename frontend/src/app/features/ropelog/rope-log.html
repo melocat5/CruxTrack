@@ -4,10 +4,11 @@
     <h3>CruxTrack</h3>
     <ul>
       <li><a routerLink="/dashboard" style="cursor: pointer;">Dashboard</a></li>
+      <li><a routerLink="/morning-checks" style="cursor: pointer;">Morning Checks</a></li>
       <li><a routerLink="/ropelog" style="cursor: pointer; font-weight: bold;">Rope Log</a></li>
       <li><a routerLink="/routes" style="cursor: pointer;">Route Management</a></li>
-      <li><a href="#">Inventory</a></li>
-      <li><a href="#">User Settings</a></li>
+      <li><a routerLink="/inventory" style="cursor: pointer;">Inventory</a></li>
+      <li><a routerLink="/settings" style="cursor: pointer; font-weight: bold;">User Settings</a></li>
     </ul>
     <button type="button" class="logout-button" (click)="auth.logout()">Logout</button>
   </nav>

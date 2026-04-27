@@ -18,6 +18,7 @@ public class Routes {
     @Column(nullable = false)
     private String routeName;
 
+    // Changed back to String to support V-scale and Yosemite Decimal System
     @Column(nullable = false)
     private String grade;
 
@@ -42,7 +43,7 @@ public class Routes {
     public Routes() {
     }
 
-    public Routes(String routeName, String grade, String holdColor, String climbType, String startType, String routeSetter, String dateSet) {
+    public Routes(String routeName, String grade, String holdColor, String climbType, String startType, String routeSetter, String dateSet, boolean isActive) {
         this.routeName = routeName;
         this.grade = grade;
         this.holdColor = holdColor;
@@ -62,6 +63,7 @@ public class Routes {
     public String getStartType() { return startType; }
     public String getRouteSetter() { return routeSetter; }
     public String getDateSet() { return dateSet; }
+    public boolean isActive() { return isActive; }
 
     // --- Setters ---
     public void setId(Long id) { this.id = id; }
@@ -72,6 +74,5 @@ public class Routes {
     public void setStartType(String startType) { this.startType = startType; }
     public void setRouteSetter(String routeSetter) { this.routeSetter = routeSetter; }
     public void setDateSet(String dateSet) { this.dateSet = dateSet; }
-    public boolean isActive() { return isActive; }
     public void setActive(boolean active) { isActive = active; }
 }
