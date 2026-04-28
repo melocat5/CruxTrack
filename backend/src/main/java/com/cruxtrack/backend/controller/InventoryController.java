@@ -1,8 +1,8 @@
 package com.cruxtrack.backend.controller;
 
-import com.cruxtrack.backend.entity.Routes;
-import com.cruxtrack.backend.entity.RoutesRequest;
-import com.cruxtrack.backend.repository.RoutesRepository;
+import com.cruxtrack.backend.entity.Inventory;
+import com.cruxtrack.backend.entity.InventoryRequest;
+import com.cruxtrack.backend.repository.InventoryRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,25 +25,21 @@ public class InventoryController {
             request.getItemName(),
             request.getQuantity()
         );
-            request.getStarttype(),
-            request.getRoutesetter(),
-            request.getUsageDate()
-        );
 
-        Routes saved = routesRepository.save(routes);
+        Inventory saved = inventoryRepository.save(inventory);
         return ResponseEntity.ok(saved);
     }
 
     @GetMapping
-    public ResponseEntity<List<Routes>> getAllRoutes() {
-        List<Routes> routes = routesRepository.findAll();
-        return ResponseEntity.ok(routes);
+    public ResponseEntity<List<Inventory>> getAllInventory() {
+        List<Inventory> inventory = inventoryRepository.findAll();
+        return ResponseEntity.ok(inventory);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteRoute(@PathVariable long id) {
-        if (routesRepository.existsById(id)) {
-            routesRepository.deleteById(id);
+    public ResponseEntity<Void> deleteInventory(@PathVariable long id) {
+        if (inventoryRepository.existsById(id)) {
+            inventoryRepository.deleteById(id);
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
