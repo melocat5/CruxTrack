@@ -2,79 +2,44 @@ package com.cruxtrack.backend.entity;
 
 import java.time.LocalDate;
 
-public class RopesRequest {
-    private String status;
-    private int usesChange;
-    private int totalUses;
-    private String notes;
+public class UserRequest {
+    private String username;
+    private String password;
+    private String role;
     private LocalDate usageDate;
 
-    public RopesRequest() {
+    public UserRequest() {
     }
 
-    public RopesRequest(String status, int usesChange, int totalUses, String notes, LocalDate usageDate) {
-        this.status = status;
-        this.usesChange = usesChange;
-        this.totalUses = totalUses;
-        this.notes = notes;
+    public UserRequest(String username, String password, String role, LocalDate usageDate) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
         this.usageDate = usageDate;
     }
 
-    // Getters and Setters
-    public String getStatus() {
-        return status;
+    public String getUsername() {
+        return username;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setUsesChange(int usesChange)
-    {
-        this.usesChange = usesChange;
-    }
-    public int getUsesChange()
-    {
-        return usesChange;
+    public String getPassword() {
+        return password;
     }
 
-    public int getTotalUses()
-    {
-        return totalUses;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public void setTotalUses(int totalUses)
-    {
-        this.totalUses = totalUses;
+    public String getRole() {
+        return role;
     }
 
-    /*
-    public int getUsesChange() {
-        return usesChange;
-    }
-
-    public void setUsesChange(int usesChange) {
-        this.usesChange = usesChange;
-    }
-
-    public int getTotalUses() {
-        return totalUses + getUsesChange();
-    }
-
-    public void setTotalUses(int totalUses) {
-        this.totalUses += getUsesChange();
-    }
-    
-    
-    */
-   
-    
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public LocalDate getUsageDate() {
