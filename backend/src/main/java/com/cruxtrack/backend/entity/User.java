@@ -1,5 +1,7 @@
 package com.cruxtrack.backend.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,13 +28,17 @@ public class User {
     @Column(nullable = false)
     private String role;
 
+    @Column(nullable = false)
+    private LocalDate usageDate;
+
     public User() {
     }
 
-    public User(String username, String password, String role) {
+    public User(String username, String password, String role, LocalDate usageDate) {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.usageDate = usageDate;
     }
 
     //Getters
