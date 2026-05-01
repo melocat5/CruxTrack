@@ -1,0 +1,102 @@
+<div class="dashboard-layout">
+  <nav class="sidebar">
+    <h3>CruxTrack</h3>
+    <ul>
+      <li><a routerLink="/dashboard" style="cursor: pointer;">Dashboard</a></li>
+      <li><a routerLink="/morning-checks" style="cursor: pointer;">Morning Checks</a></li>
+      <li><a routerLink="/ropelog" style="cursor: pointer;">Rope Log</a></li>
+      <li><a routerLink="/routes" style="cursor: pointer; font-weight: bold;">Route Management</a></li>
+      <li><a routerLink="/inventory" style="cursor: pointer;">Inventory</a></li>
+      <li><a routerLink="/settings" style="cursor: pointer; font-weight: bold;">User Settings</a></li>
+    </ul>
+    <button type="button" class="logout-button" (click)="auth.logout()">Logout</button>
+  </nav>
+
+  <main class="content">
+    <div class="header-actions">
+      <h1>Route Management</h1>
+    </div>
+
+    <div class="add-route-card">
+      <h3>Set a New Route</h3>
+      <div class="add-form-grid">
+        <input [(ngModel)]="newName" placeholder="Route Name" class="styled-input" />
+        <input [(ngModel)]="newGrade" placeholder="Grade (e.g. V4, 5.10a)" class="styled-input" />
+        <input [(ngModel)]="newHoldColor" placeholder="Hold Color" class="styled-input" />
+        
+        <select [(ngModel)]="newClimbType" class="styled-input">
+          <option value="Bouldering">Bouldering</option>
+          <option value="Tower">Tower</option>
+          <option value="Lead">Lead</option>
+          <option value="Top Rope">Top Rope</option>
+        </select>
+
+        <select [(ngModel)]="newStartType" class="styled-input">
+          <option value="Matched">Matched</option>
+          <option value="Two-handed">Two-handed</option>
+          <option value="Sit Start">Sit Start</option>
+          <option value="Stand Start">Stand Start</option>
+        </select>
+        
+        <input [(ngModel)]="newSetter" placeholder="Setter Name" class="styled-input" />
+        <button type="button" class="primary-button" (click)="addRoute()">+ Add Route</button>
+      </div>
+    </div>
+
+    <div class="rope-list" style="margin-top: 30px;">
+      
+    <div class="rope-list-header">
+        <div class="col-name">Name</div>
+        <div class="col-grade">Grade</div>
+        <div class="col-color">Hold Color</div>
+        <div class="col-type">Type / Start</div>
+        <div class="col-setter">Setter</div>
+        <div class="col-date">Date Set</div>
+        <div class="col-status">Status</div> <div class="col-actions">Actions</div>
+      </div>
+
+      <div class="rope-item" *ngFor="let route of routes">
+        
+        <ng-container *ngIf="editingId !== route.id">
+          <div class="col-name"><strong>{{ route.routeName }}</strong></div>
+          <div class="col-grade"><span class="badge-grade">{{ route.grade }}</span></div>
+          <div class="col-color">{{ route.holdColor }}</div>
+          <div class="col-type">{{ route.climbType }} <br> <small style="color: #777;">{{ route.startType }}</small></div>
+          <div class="col-setter">{{ route.routeSetter }}</div>
+          <div class="col-date">{{ route.dateSet | date:'shortDate' }}</div>
+          
+          <div class="col-status">
+            <span class="status-badge" [ngClass]="route.isActive ? 'status-ok' : 'status-replace'">
+              {{ route.isActive ? 'Active' : 'Inactive' }}
+            </span>
+          </div>
+
+          <div class="col-actions">
+            <button type="button" class="action-button" (click)="toggleActiveStatus(route)" style="margin-right: 8px;">
+              {{ route.isActive ? 'Deactivate' : 'Reactivate' }}
+            </button>
+            <button type="button" class="action-button" (click)="editRoute(route.id)" style="margin-right: 8px;">Edit</button>
+            <button type="button" class="action-button danger" (click)="deleteRoute(route.id)">Delete</button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="editingId === route.id">
+          <div class="col-name"><input [(ngModel)]="route.routeName" class="styled-input full-width" /></div>
+          <div class="col-grade"><input [(ngModel)]="route.grade" class="styled-input full-width" /></div>
+          <div class="col-color"><input [(ngModel)]="route.holdColor" class="styled-input full-width" /></div>
+          <div class="col-type">
+            <select [(ngModel)]="route.climbType" class="styled-input full-width" style="margin-bottom: 4px;"><option>Bouldering</option><option>Tower</option><option>Lead</option><option>Top Rope</option></select>
+            <select [(ngModel)]="route.startType" class="styled-input full-width"><option>Matched</option><option>Two-handed</option><option>Sit Start</option><option>Stand Start</option></select>
+          </div>
+          <div class="col-setter"><input [(ngModel)]="route.routeSetter" class="styled-input full-width" /></div>
+          <div class="col-date"><input type="date" [(ngModel)]="route.dateSet" class="styled-input full-width" /></div>
+          
+          <div class="col-actions">
+            <button type="button" class="primary-button" (click)="saveEdit(route)" style="margin-right: 8px;">Save</button>
+          </div>
+        </ng-container>
+
+      </div>
+    </div>
+  </main>
+</div>

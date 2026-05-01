@@ -1,0 +1,87 @@
+<div class="dashboard-layout">
+  <nav class="sidebar">
+    <h3>CruxTrack</h3>
+    <ul>
+      <li><a routerLink="/dashboard" style="cursor: pointer;">Dashboard</a></li>
+      <li><a routerLink="/morning-checks" style="cursor: pointer; font-weight: bold;">Morning Checks</a></li>
+      <li><a routerLink="/ropelog" style="cursor: pointer;">Rope Log</a></li>
+      <li><a routerLink="/routes" style="cursor: pointer;">Route Management</a></li>
+      <li><a routerLink="/inventory" style="cursor: pointer;">Inventory</a></li>
+      <li><a routerLink="/settings" style="cursor: pointer; font-weight: bold;">User Settings</a></li>
+    </ul>
+    <button type="button" class="logout-button" (click)="auth.logout()">Logout</button>
+  </nav>
+
+  <main class="content">
+    <h1>Morning Checks</h1>
+
+    <div class="split-layout">
+      <div class="form-section card">
+        <h3>Daily Tasks</h3>
+        
+        <div class="admin-task-add" *ngIf="isAdmin">
+          <input [(ngModel)]="newTaskName" placeholder="Add a new daily task..." class="styled-input" />
+          <button class="action-button" (click)="addTask()">+ Add</button>
+        </div>
+
+        <div class="task-list">
+          <div *ngIf="tasks.length === 0" style="color: #777; font-style: italic; padding: 10px 0;">
+            No tasks currently assigned.
+          </div>
+          
+          <div *ngFor="let task of tasks" class="task-item-row">
+            <label class="task-item">
+              <input type="checkbox" [(ngModel)]="task.completed" />
+              <span>{{ task.name }}</span>
+            </label>
+            
+            <button type="button" *ngIf="isAdmin" class="icon-button danger-text" (click)="deleteTask(task.id)" title="Delete Task">
+              ✕
+            </button>
+          </div>
+        </div>
+        
+        <h3 style="margin-top: 25px;">Notes</h3>
+        <textarea [(ngModel)]="notes" placeholder="Any issues found? Need more supplies? Add notes here..." class="styled-input full-width" rows="4"></textarea>
+
+        <div style="margin-top: 20px;">
+          <button class="primary-button" [disabled]="!allChecked" (click)="submitForm()">Submit Checks</button>
+          <p *ngIf="!allChecked && tasks.length > 0" class="helper-text">Please complete all task checkboxes to submit.</p>
+        </div>
+      </div>
+
+      <div class="inventory-section card">
+        <h3>Inventory Quick Count</h3>
+        <p class="subtitle">Reference these quantities while checking equipment.</p>
+        <div class="inventory-list">
+          <div class="inventory-list-header">
+            <div class="col-name">Item Name</div>
+            <div class="col-qty">Quantity</div>
+          </div>
+          <div class="inventory-item" *ngFor="let item of inventoryItems">
+            <div class="col-name">{{ item.itemName }}</div>
+            <div class="col-qty"><strong>{{ item.quantity }}</strong></div>
+          </div>
+          <div *ngIf="inventoryItems.length === 0" style="padding: 15px; color: #777;">No inventory items found.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="admin-section card" *ngIf="isAdmin" style="margin-top: 30px;">
+      <h3>Past Submissions (Admin Only)</h3>
+      <div class="submission-list">
+        <div class="submission-list-header">
+          <div class="col-date">Date & Time</div>
+          <div class="col-user">Submitted By</div>
+          <div class="col-notes">Notes</div>
+        </div>
+        <div class="submission-item" *ngFor="let sub of submissions">
+          <div class="col-date">{{ sub.timestamp | date:'short' }}</div>
+          <div class="col-user">{{ sub.submittedBy }}</div>
+          <div class="col-notes">{{ sub.notes || 'No additional notes provided.' }}</div>
+        </div>
+        <div *ngIf="submissions.length === 0" style="padding: 15px; color: #777;">No past submissions found.</div>
+      </div>
+    </div>
+  </main>
+</div>

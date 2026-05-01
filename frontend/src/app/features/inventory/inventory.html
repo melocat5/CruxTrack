@@ -1,0 +1,59 @@
+<div class="dashboard-layout">
+  <nav class="sidebar">
+    <h3>CruxTrack</h3>
+    <ul>
+      <li><a routerLink="/dashboard" style="cursor: pointer;">Dashboard</a></li>
+      <li><a routerLink="/morning-checks" style="cursor: pointer;">Morning Checks</a></li>
+      <li><a routerLink="/ropelog" style="cursor: pointer;">Rope Log</a></li>
+      <li><a routerLink="/routes" style="cursor: pointer;">Route Management</a></li>
+      <li><a routerLink="/inventory" style="cursor: pointer; font-weight: bold;">Inventory</a></li>
+      <li><a routerLink="/settings" style="cursor: pointer; font-weight: bold;">User Settings</a></li>
+    </ul>
+    <button type="button" class="logout-button" (click)="auth.logout()">Logout</button>
+  </nav>
+
+  <main class="content">
+    <div class="header-actions">
+      <h1>Inventory</h1>
+      <div class="add-section" *ngIf="isAdmin">
+        <input [(ngModel)]="newItemName" placeholder="New Item Name" class="styled-input" />
+        <input type="number" [(ngModel)]="newItemQuantity" placeholder="Qty" class="styled-input qty-input" />
+        <button type="button" class="primary-button" (click)="addItem()">+ Add Item</button>
+      </div>
+    </div>
+
+    <div class="inventory-list">
+      
+      <div class="inventory-list-header">
+        <div class="col-name">Item Name</div>
+        <div class="col-qty">Quantity</div>
+        <div class="col-notes">Notes</div>
+        <div class="col-actions" *ngIf="isAdmin">Actions</div>
+      </div>
+
+      <div class="inventory-item" *ngFor="let item of items">
+        
+        <div class="col-name">
+          <strong>{{ item.itemName }}</strong>
+        </div>
+        
+        <div class="col-qty qty-control">
+          <button type="button" class="icon-button" *ngIf="isAdmin" (click)="changeQuantity(item, -1)">-</button>
+          <span class="qty-count">{{ item.quantity }}</span>
+          <button type="button" class="icon-button" *ngIf="isAdmin" (click)="changeQuantity(item, 1)">+</button>
+        </div>
+        
+        <div class="col-notes">
+          <input [(ngModel)]="item.notes" (change)="saveItem(item)" placeholder="Add notes..." class="styled-input full-width" />
+        </div>
+
+        <div class="col-actions" *ngIf="isAdmin">
+          <button type="button" class="action-button danger" (click)="deleteItem(item.id)">
+            Delete
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>

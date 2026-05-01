@@ -1,0 +1,53 @@
+<div class="dashboard-layout">
+  <nav class="sidebar">
+    <h3>CruxTrack</h3>
+    <ul>
+      <li><a routerLink="/dashboard" style="cursor: pointer; font-weight: bold;">Dashboard</a></li>
+      <li><a routerLink="/morning-checks" style="cursor: pointer;">Morning Checks</a></li>
+      <li><a routerLink="/ropelog" style="cursor: pointer;">Rope Log</a></li>
+      <li><a routerLink="/routes" style="cursor: pointer;">Route Management</a></li>
+      <li><a routerLink="/inventory" style="cursor: pointer;">Inventory</a></li>
+      <li><a routerLink="/settings" style="cursor: pointer; font-weight: bold;">User Settings</a></li>
+    </ul>
+    <button type="button" class="logout-button" (click)="auth.logout()">Logout</button>
+  </nav>
+
+  <main class="content">
+    <h1>Dashboard</h1>
+
+    <div *ngIf="urgentReplacements > 0" style="background: #ffebee; color: #c62828; border-left: 4px solid #c62828; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
+      <strong>⚠ URGENT:</strong> You have {{ urgentReplacements }} rope(s) that must be replaced immediately!
+    </div>
+
+    <div *ngIf="soonReplacements > 0" style="background: #fff1cd; color: #ef6c00; border-left: 4px solid #ef6c00; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
+      <strong>⚠ NOTICE:</strong> You have {{ soonReplacements }} rope(s) nearing their 100-use limit.
+    </div>
+
+    @if (auth.user(); as u) {
+      <p>Signed in as <strong>{{ u.username }}</strong> ({{ u.primaryRole }}).</p>
+    } @else {
+      <p>Welcome back! Here is today's overview.</p>
+    }
+    
+    <div class="card-grid">
+      <div class="card">
+        <h3>Morning Checks</h3>
+        <p>Complete daily tasks and perform quick inventory counts.</p>
+        <button type="button" routerLink="/morning-checks">Start Checks</button>
+      </div>
+
+      <div class="card">
+        <h3>Rope Status</h3>
+        <p *ngIf="urgentReplacements === 0 && soonReplacements === 0">All ropes are currently in good condition.</p>
+        <p *ngIf="urgentReplacements > 0 || soonReplacements > 0">Action required on {{ urgentReplacements + soonReplacements }} rope(s).</p>
+        <button type="button" routerLink="/ropelog">Manage Ropes</button>
+      </div>
+
+      <div class="card">
+        <h3>Active Routes</h3>
+        <p>{{ activeRoutesCount }} route(s) currently set in the gym.</p>
+        <button type="button" routerLink="/routes">Manage Routes</button>
+      </div>
+    </div>
+  </main>
+</div>
