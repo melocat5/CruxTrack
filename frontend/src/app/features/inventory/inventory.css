@@ -6,7 +6,7 @@
 
 .content h1 {
   margin-top: 0;
-  color: #e65100; 
+  color: var(--crux-orange-heading); 
 }
 
 .header-actions {
@@ -31,7 +31,7 @@
 }
 
 .styled-input:focus {
-  border-color: #ef6c00; 
+  border-color: var(--crux-orange-primary); 
 }
 
 .qty-input {
@@ -43,7 +43,7 @@
   box-sizing: border-box;
 }
 
-button {
+button:not(.logout-button) {
   cursor: pointer;
   border: none;
   border-radius: 6px;
@@ -51,18 +51,18 @@ button {
   transition: background-color 0.2s, opacity 0.2s;
 }
 
-button:active {
+button:not(.logout-button):active {
   opacity: 0.8;
 }
 
 .primary-button {
-  background-color: #ef6c00; 
+  background-color: var(--crux-orange-primary); 
   color: white;
   padding: 10px 16px;
 }
 
 .primary-button:hover {
-  background-color: #e65100; 
+  background-color: var(--crux-orange-primary-hover); 
 }
 
 .icon-button {

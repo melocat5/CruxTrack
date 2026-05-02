@@ -2,27 +2,58 @@
 
 @import "tailwindcss";
 
+/* Pastel orange theme — shared across layout + feature pages */
+:root {
+  --crux-orange-heading: #9d6a52;
+  --crux-orange-primary: #e8a878;
+  --crux-orange-primary-hover: #d99163;
+  --crux-orange-sidebar: #c49a82;
+  --crux-orange-sidebar-hover: #d4ab94;
+  --crux-orange-sidebar-deep: #b88a74;
+  --crux-orange-sidebar-title: #ffeadd;
+  --crux-orange-on-sidebar: #fffbf7;
+  --crux-orange-page-wash: #faf2ea;
+  --crux-orange-muted: #f7e0d0;
+  --crux-orange-soft-shadow: rgba(157, 106, 82, 0.12);
+}
+
 .dashboard-layout {
   display: flex;
   min-height: 100vh;
+  /* Keep sidebar viewport-tall; do not stretch it with long main content */
+  align-items: flex-start;
 }
+
+.dashboard-layout > .content {
+  flex: 1;
+  min-width: 0;
+}
+
 /* Sidebar styles */
 .sidebar {
   width: 260px;
-  background-color: #e65100; 
-  color: #fff0d2;
+  background-color: var(--crux-orange-sidebar);
+  color: var(--crux-orange-on-sidebar);
   padding: 2rem 1.5rem;
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+  /* Pin height to the viewport so logout stays at the bottom of the screen */
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
 }
 /* Logout button styles */
 .logout-button {
   margin-top: auto; 
   
   background-color: transparent;
-  color: #fff0d2;
-  border: 1px solid #fff0d2;
+  color: var(--crux-orange-on-sidebar);
+  border: 1px solid rgba(255, 251, 247, 0.75);
   padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
@@ -31,7 +62,12 @@
 }
 
 .logout-button:hover {
-  background-color: #fc6f11; 
+  background-color: var(--crux-orange-sidebar-deep);
+}
+
+/* Beats component-scoped `button { border: none }` on shared layout pages */
+.sidebar .logout-button {
+  border: 1px solid rgba(255, 251, 247, 0.75);
 }
 
 /* Sidebar header */
@@ -41,7 +77,7 @@
   font-size: 1.2rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #f7b768; 
+  color: var(--crux-orange-sidebar-title);
 }
 /* Sidebar navigation */
 .sidebar ul {
@@ -64,6 +100,6 @@
 }
 /* Hover effect for sidebar links */
 .sidebar a:hover {
-  background-color: #fc6f11; 
+  background-color: var(--crux-orange-sidebar-hover);
   transform: translateX(4px); 
 }

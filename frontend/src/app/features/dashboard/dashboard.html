@@ -3,7 +3,7 @@
     <h3>CruxTrack</h3>
     <ul>
       <li><a routerLink="/dashboard" style="cursor: pointer; font-weight: bold;">Dashboard</a></li>
-      <li><a routerLink="/morning-checks" style="cursor: pointer;">Morning Checks</a></li>
+      <li><a routerLink="/morning-checks" style="cursor: pointer;">Daily inventory check</a></li>
       <li><a routerLink="/ropelog" style="cursor: pointer;">Rope Log</a></li>
       <li><a routerLink="/routes" style="cursor: pointer;">Route Management</a></li>
       <li><a routerLink="/inventory" style="cursor: pointer;">Inventory</a></li>
@@ -19,7 +19,7 @@
       <strong>⚠ URGENT:</strong> You have {{ urgentReplacements }} rope(s) that must be replaced immediately!
     </div>
 
-    <div *ngIf="soonReplacements > 0" style="background: #fff1cd; color: #ef6c00; border-left: 4px solid #ef6c00; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
+    <div *ngIf="soonReplacements > 0" style="background: #fff5eb; color: #9d6a52; border-left: 4px solid #e8a878; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
       <strong>⚠ NOTICE:</strong> You have {{ soonReplacements }} rope(s) nearing their 100-use limit.
     </div>
 
@@ -31,9 +31,9 @@
     
     <div class="card-grid">
       <div class="card">
-        <h3>Morning Checks</h3>
+        <h3>Daily inventory check</h3>
         <p>Complete daily tasks and perform quick inventory counts.</p>
-        <button type="button" routerLink="/morning-checks">Start Checks</button>
+        <button type="button" routerLink="/morning-checks">Start daily inventory check</button>
       </div>
 
       <div class="card">

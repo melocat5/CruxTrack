@@ -6,7 +6,7 @@
 
 .content h1 {
   margin-top: 0;
-  color: #e65100; 
+  color: var(--crux-orange-heading); 
 }
 
 .header-actions {
@@ -50,7 +50,7 @@
 }
 
 .styled-input:focus {
-  border-color: #ef6c00;
+  border-color: var(--crux-orange-primary);
 }
 
 .full-width {
@@ -59,7 +59,7 @@
 }
 
 /* Buttons */
-button {
+button:not(.logout-button) {
   cursor: pointer;
   border: none;
   border-radius: 6px;
@@ -67,16 +67,18 @@ button {
   transition: background-color 0.2s, opacity 0.2s;
 }
 
-button:active { opacity: 0.8; }
+button:not(.logout-button):active {
+  opacity: 0.8;
+}
 
 .primary-button {
-  background-color: #ef6c00;
+  background-color: var(--crux-orange-primary);
   color: white;
   padding: 10px 16px;
   height: 40px; /* Matches input height */
 }
 
-.primary-button:hover { background-color: #e65100; }
+.primary-button:hover { background-color: var(--crux-orange-primary-hover); }
 
 .action-button {
   padding: 8px 12px;

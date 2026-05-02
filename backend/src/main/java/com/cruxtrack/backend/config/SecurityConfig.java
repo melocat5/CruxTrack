@@ -15,48 +15,47 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-// CRUXTRACK: CENTRAL PLACE THAT CONFIGURES PASSWORDS, LOGIN BEHAVIOR, SESSIONS, CSRF, CORS, AND URL RULES
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
 	@Bean
-	// CRUXTRACK: ONE-WAY ENCRYPTION FOR PASSWORDS — SAME PLAIN TEXT CAN LOOK DIFFERENT EACH SAVE (SALT)
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
 	@Bean
-	// CRUXTRACK: USED BY AUTHCONTROLLER TO RUN USERNAME/PASSWORD LOGIN
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
 		return configuration.getAuthenticationManager();
 	}
 
 	@Bean
-	// CRUXTRACK: ORDER MATTERS: FIRST MATCH WINS — AUTH PATHS ARE OPEN; ADMIN PATH NEEDS ROLE; REST NEEDS LOGIN
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
-			// CRUXTRACK: CORS = BROWSER RULES FOR CALLING THIS API FROM A DIFFERENT PORT (E.G. ANGULAR ON 4200)
 			.cors(cors -> cors.configurationSource(corsConfigurationSource()))
-			// CRUXTRACK: CSRF PROTECTION FOR BROWSER APPS — COOKIE + HEADER MUST MATCH ON POST/PUT/DELETE
-			.cors(cors -> cors.configurationSource(corsConfigurationSource()))
-			.csrf(csrf -> csrf.disable()) // Simply disable it so Angular's requests pass through
-			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
-			// CRUXTRACK: CREATE A SESSION WHEN NEEDED (LOGIN) — THAT IS HOW SESSION COOKIES WORK
+			.csrf(csrf -> csrf.disable())
 			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
 			.authorizeHttpRequests(auth -> auth
-				.requestMatchers(HttpMethod.GET, "/api/auth/me").permitAll()
-				.requestMatchers(HttpMethod.POST, "/api/auth/login", "/api/auth/logout").permitAll()
-				// CRUXTRACK: ONLY ACCOUNTS WITH ROLE "ADMIN" (SPRING STORES AS ROLE_ADMIN)
-				.requestMatchers("/api/admin/**").hasRole("ADMIN")
+				.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+				.requestMatchers(HttpMethod.GET, "/api/auth/me").authenticated()
+				.requestMatchers(HttpMethod.POST, "/api/auth/logout").authenticated()
+				.requestMatchers(HttpMethod.GET, "/api/users/me").authenticated()
+				.requestMatchers(HttpMethod.PUT, "/api/users/me").authenticated()
+				.requestMatchers(HttpMethod.POST, "/api/users/me/change-password").authenticated()
+				.requestMatchers(HttpMethod.GET, "/api/users").hasRole("ADMIN")
+				.requestMatchers(HttpMethod.POST, "/api/users").hasRole("ADMIN")
+				.requestMatchers(HttpMethod.PUT, "/api/users/*/deactivate").hasRole("ADMIN")
+				.requestMatchers(HttpMethod.GET, "/api/morning-checks").hasRole("ADMIN")
+				.requestMatchers(HttpMethod.POST, "/api/morning-checks").authenticated()
+				.requestMatchers(HttpMethod.GET, "/api/morning-tasks").authenticated()
+				.requestMatchers(HttpMethod.POST, "/api/morning-tasks").hasRole("ADMIN")
+				.requestMatchers(HttpMethod.DELETE, "/api/morning-tasks/**").hasRole("ADMIN")
 				.requestMatchers("/api/**").authenticated()
 				.anyRequest().denyAll())
-			// CRUXTRACK: IF NOT LOGGED IN, RETURN HTTP 401 INSTEAD OF REDIRECTING TO A LOGIN PAGE
 			.exceptionHandling(ex -> ex.authenticationEntryPoint(
 				new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
 			.httpBasic(basic -> basic.disable())
@@ -65,10 +64,9 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	// CRUXTRACK: ALLOWS THE ANGULAR DEV SERVER ORIGIN TO SEND COOKIES AND HEADERS TO THIS API
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowedOrigins(List.of("http://localhost:4200", "http://127.0.0.1:4200"));
+		config.setAllowedOriginPatterns(List.of("http://localhost:*", "http://127.0.0.1:*"));
 		config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
 		config.setAllowedHeaders(List.of("*"));
 		config.setExposedHeaders(List.of("Set-Cookie"));

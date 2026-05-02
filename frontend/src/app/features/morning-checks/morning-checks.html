@@ -3,7 +3,7 @@
     <h3>CruxTrack</h3>
     <ul>
       <li><a routerLink="/dashboard" style="cursor: pointer;">Dashboard</a></li>
-      <li><a routerLink="/morning-checks" style="cursor: pointer; font-weight: bold;">Morning Checks</a></li>
+      <li><a routerLink="/morning-checks" style="cursor: pointer; font-weight: bold;">Daily inventory check</a></li>
       <li><a routerLink="/ropelog" style="cursor: pointer;">Rope Log</a></li>
       <li><a routerLink="/routes" style="cursor: pointer;">Route Management</a></li>
       <li><a routerLink="/inventory" style="cursor: pointer;">Inventory</a></li>
@@ -13,40 +13,32 @@
   </nav>
 
   <main class="content">
-    <h1>Morning Checks</h1>
+    <h1>Daily inventory check</h1>
 
     <div class="split-layout">
       <div class="form-section card">
-        <h3>Daily Tasks</h3>
-        
-        <div class="admin-task-add" *ngIf="isAdmin">
-          <input [(ngModel)]="newTaskName" placeholder="Add a new daily task..." class="styled-input" />
-          <button class="action-button" (click)="addTask()">+ Add</button>
-        </div>
+        <h3>Equipment check</h3>
+        <p class="subtitle equipment-check-intro">Is all equipment present and accounted for? Use the inventory on the right as a reference while you verify gear in the gym.</p>
 
-        <div class="task-list">
-          <div *ngIf="tasks.length === 0" style="color: #777; font-style: italic; padding: 10px 0;">
-            No tasks currently assigned.
-          </div>
-          
-          <div *ngFor="let task of tasks" class="task-item-row">
-            <label class="task-item">
-              <input type="checkbox" [(ngModel)]="task.completed" />
-              <span>{{ task.name }}</span>
-            </label>
-            
-            <button type="button" *ngIf="isAdmin" class="icon-button danger-text" (click)="deleteTask(task.id)" title="Delete Task">
-              ✕
-            </button>
-          </div>
-        </div>
-        
+        <label for="equipment-present" class="field-label">All equipment present?</label>
+        <select
+          id="equipment-present"
+          name="equipmentPresent"
+          [(ngModel)]="equipmentPresent"
+          class="styled-input full-width equipment-select"
+        >
+          <option value="" disabled>Select Yes or No…</option>
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+
         <h3 style="margin-top: 25px;">Notes</h3>
-        <textarea [(ngModel)]="notes" placeholder="Any issues found? Need more supplies? Add notes here..." class="styled-input full-width" rows="4"></textarea>
+        <p class="subtitle notes-hint">Optional: describe missing, damaged, or other gear issues for admins.</p>
+        <textarea [(ngModel)]="notes" placeholder="e.g. 3 rental harnesses missing from bin B, rope 12 frayed…" class="styled-input full-width" rows="4"></textarea>
 
         <div style="margin-top: 20px;">
-          <button class="primary-button" [disabled]="!allChecked" (click)="submitForm()">Submit Checks</button>
-          <p *ngIf="!allChecked && tasks.length > 0" class="helper-text">Please complete all task checkboxes to submit.</p>
+          <button class="primary-button" type="button" [disabled]="!canSubmitChecks" (click)="submitForm()">Submit daily inventory check</button>
+          <p *ngIf="!canSubmitChecks" class="helper-text">Select Yes or No above to submit.</p>
         </div>
       </div>
 
@@ -68,7 +60,27 @@
     </div>
 
     <div class="admin-section card" *ngIf="isAdmin" style="margin-top: 30px;">
-      <h3>Past Submissions (Admin Only)</h3>
+      <h3>Daily inventory task list (admin)</h3>
+      <p class="subtitle">Templates stored for the gym; the counter form uses the equipment check above.</p>
+
+      <div class="admin-task-add">
+        <input [(ngModel)]="newTaskName" placeholder="Add a task label…" class="styled-input" />
+        <button type="button" class="action-button" (click)="addTask()">+ Add</button>
+      </div>
+
+      <div class="task-list">
+        <div *ngIf="tasks.length === 0" style="color: #777; font-style: italic; padding: 10px 0;">
+          No tasks in the list.
+        </div>
+        <div *ngFor="let task of tasks" class="task-item-row">
+          <span class="task-item-readonly">{{ task.name }}</span>
+          <button type="button" class="icon-button danger-text" (click)="deleteTask(task.id)" title="Delete task">
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 28px;">Past Submissions (Admin Only)</h3>
       <div class="submission-list">
         <div class="submission-list-header">
           <div class="col-date">Date & Time</div>

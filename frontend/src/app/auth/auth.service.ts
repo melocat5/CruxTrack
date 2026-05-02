@@ -25,7 +25,7 @@ export class AuthService {
 
   // CRUXTRACK: CALLS GET /API/AUTH/ME — TRUE IF SESSION COOKIE IS STILL VALID
   refreshMe(): Observable<boolean> {
-    return this.http.get<UserInfo>('http://localhost:8080/api/auth/me').pipe(
+    return this.http.get<UserInfo>('/api/auth/me').pipe(
       tap((u) => this.user.set(u)),
       map(() => true),
       catchError(() => {
@@ -37,12 +37,12 @@ export class AuthService {
 
   // CRUXTRACK: POST /API/AUTH/LOGIN — SERVER SETS SESSION COOKIE ON SUCCESS
   login(username: string, password: string): Observable<UserInfo> {
-    return this.http.post<UserInfo>('http://localhost:8080/api/auth/login', { username, password }).pipe(tap((u) => this.user.set(u)));
+    return this.http.post<UserInfo>('/api/auth/login', { username, password }).pipe(tap((u) => this.user.set(u)));
   }
 
   // CRUXTRACK: POST /API/AUTH/LOGOUT — CLEARS SERVER SESSION AND RETURNS TO LOGIN PAGE
   logout(): void {
-    this.http.post<void>('http://localhost:8080/api/auth/logout', {}).subscribe({
+    this.http.post<void>('/api/auth/logout', {}).subscribe({
       next: () => {
         this.user.set(null);
         void this.router.navigate(['/login']);

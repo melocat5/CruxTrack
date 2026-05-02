@@ -12,7 +12,7 @@ export interface Rope {
 @Injectable({ providedIn: 'root' })
 export class RopeService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:8080/api/ropes';
+  private readonly apiUrl = '/api/ropes';
 
   getRopes(): Observable<Rope[]> {
     return this.http.get<Rope[]>(this.apiUrl);

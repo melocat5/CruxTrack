@@ -12,7 +12,7 @@ export interface InventoryItem {
 @Injectable({ providedIn: 'root' })
 export class InventoryService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:8080/api/inventory';
+  private readonly apiUrl = '/api/inventory';
 
   getInventory(): Observable<InventoryItem[]> {
     return this.http.get<InventoryItem[]>(this.apiUrl);

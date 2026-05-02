@@ -2,92 +2,97 @@ package com.cruxtrack.backend.entity;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class RoutesRequest {
-    private String routename;
-    private String grade;
-    private String holdColor;
-    private boolean isActive;
-    private String routeType;
-    private String starttype;
-    private String routesetter;
-    private LocalDate usageDate;
 
-    public RoutesRequest() {
-    }
+	@JsonAlias("routeName")
+	private String routename;
 
-    public RoutesRequest(String routename, String grade, String holdColor, boolean isActive, String routeType, String starttype, String routesetter, LocalDate usageDate) {
-        this.routename = routename;
-        this.grade = grade;
-        this.holdColor = holdColor;
-        this.isActive = isActive;
-        this.routeType = routeType;
-        this.starttype = starttype;
-        this.routesetter = routesetter;
-        this.usageDate = usageDate;
-    }
+	private String grade;
 
-    // Getters and Setters
-    public String getRoutename() {
-        return routename;
-    }
+	private String holdColor;
 
-    public void setRoutename(String routename) {
-        this.routename = routename;
-    }
+	private boolean isActive;
 
-    public String getGrade() {
-        return grade;
-    }
+	@JsonAlias("climbType")
+	private String routeType;
 
-    public void setGrade(String grade) {
-        this.grade = grade;
-    }
+	@JsonAlias("startType")
+	private String starttype;
 
-    public String getHoldColor() {
-        return holdColor;
-    }
+	@JsonAlias("routeSetter")
+	private String routesetter;
 
-    public void setHoldColor(String holdColor) {
-        this.holdColor = holdColor;
-    }
+	@JsonAlias("dateSet")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private LocalDate usageDate;
 
-    public boolean isActive() {
-        return isActive;
-    }
+	public RoutesRequest() {
+	}
 
-    public void setActive(boolean active) {
-        isActive = active;
-    }
+	public String getRoutename() {
+		return routename;
+	}
 
-    public String getRouteType() {
-        return routeType;
-    }
+	public void setRoutename(String routename) {
+		this.routename = routename;
+	}
 
-    public void setRouteType(String routeType) {
-        this.routeType = routeType;
-    }
+	public String getGrade() {
+		return grade;
+	}
 
-    public String getStarttype() {
-        return starttype;
-    }
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
 
-    public void setStarttype(String starttype) {
-        this.starttype = starttype;
-    }
+	public String getHoldColor() {
+		return holdColor;
+	}
 
-    public String getRoutesetter() {
-        return routesetter;
-    }
+	public void setHoldColor(String holdColor) {
+		this.holdColor = holdColor;
+	}
 
-    public void setRoutesetter(String routesetter) {
-        this.routesetter = routesetter;
-    }
-    
-    public LocalDate getUsageDate() {
-        return usageDate;
-    }
+	public boolean isActive() {
+		return isActive;
+	}
 
-    public void setUsageDate(LocalDate usageDate) {
-        this.usageDate = usageDate;
-    }
+	public void setActive(boolean active) {
+		isActive = active;
+	}
+
+	public String getRouteType() {
+		return routeType;
+	}
+
+	public void setRouteType(String routeType) {
+		this.routeType = routeType;
+	}
+
+	public String getStarttype() {
+		return starttype;
+	}
+
+	public void setStarttype(String starttype) {
+		this.starttype = starttype;
+	}
+
+	public String getRoutesetter() {
+		return routesetter;
+	}
+
+	public void setRoutesetter(String routesetter) {
+		this.routesetter = routesetter;
+	}
+
+	public LocalDate getUsageDate() {
+		return usageDate;
+	}
+
+	public void setUsageDate(LocalDate usageDate) {
+		this.usageDate = usageDate;
+	}
 }

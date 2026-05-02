@@ -15,7 +15,7 @@ export interface UserProfile {
 @Injectable({ providedIn: 'root' })
 export class UserSettingsService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:8080/api/users';
+  private readonly apiUrl = '/api/users';
 
   // --- Regular User Endpoints ---
   getMyProfile(): Observable<UserProfile> {

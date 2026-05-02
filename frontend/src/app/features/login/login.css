@@ -57,14 +57,14 @@ input {
 /* Focus state for inputs */
 input:focus {
   outline: none;
-  border-color: #e65100; 
-  box-shadow: 0 0 0 3px rgba(230, 81, 0, 0.1);
+  border-color: var(--crux-orange-primary); 
+  box-shadow: 0 0 0 3px rgba(232, 168, 120, 0.22);
 }
 /* Login button styles */
 button {
   margin-top: 0.5rem;
   padding: 0.75rem;
-  background-color: #fa9416; 
+  background-color: var(--crux-orange-primary);
   color: white;
   border: none;
   border-radius: 6px;
@@ -75,11 +75,11 @@ button {
 }
 /* Hover effect for login button */
 button:hover:not(:disabled) {
-  background-color: #fc6f11;
+  background-color: var(--crux-orange-primary-hover);
 }
 /* Disabled state for login button */
 button:disabled {
-  background-color: #f7b768;
+  background-color: var(--crux-orange-muted);
   cursor: not-allowed;
   opacity: 0.7;
 }

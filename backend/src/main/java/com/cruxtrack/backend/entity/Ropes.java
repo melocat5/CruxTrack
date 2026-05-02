@@ -2,6 +2,8 @@ package com.cruxtrack.backend.entity;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,108 +11,74 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-//This creates the table for ropes
-
 @Entity
 @Table(name = "ropes")
 public class Ropes {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Column(nullable = false)
-    private String status;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(nullable = false)
-    private int usesChange; // +/-Uses
+	@Column(nullable = false)
+	private String ropeId;
 
-    @Column(nullable = false)
-    private int totalUses;
+	@Column(nullable = false)
+	private int uses;
 
-    @Column
-    private String notes;
+	@Column
+	private String notes;
 
-    @Column
-    private LocalDate usageDate;
+	@Column
+	private LocalDate usageDate;
 
-    public Ropes() {
-    }
+	public Ropes() {
+	}
 
-    public Ropes(String status, int usesChange, int totalUses, String notes, LocalDate usageDate) {
-        this.status = status;
-        this.usesChange = usesChange;
-        this.totalUses = totalUses;
-        this.notes = notes;
-        this.usageDate = usageDate;
-    }
+	public Ropes(String ropeId, int uses, String notes, LocalDate usageDate) {
+		this.ropeId = ropeId;
+		this.uses = uses;
+		this.notes = notes;
+		this.usageDate = usageDate;
+	}
 
+	@JsonProperty("id")
+	public Long getId() {
+		return id;
+	}
 
-    //Getters
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public String getRopeId() {
+		return ropeId;
+	}
 
-    public String getStatus() {
-        return status;
-    }
+	public void setRopeId(String ropeId) {
+		this.ropeId = ropeId;
+	}
 
-    public void setUsesChange(int usesChange)
-    {
-        this.usesChange = usesChange;
-    }
-    public int getUsesChange()
-    {
-        return usesChange;
-    }
+	public int getUses() {
+		return uses;
+	}
 
-    public int getTotalUses()
-    {
-        return totalUses;
-    }
+	public void setUses(int uses) {
+		this.uses = uses;
+	}
 
-    /*
-    public int getUsesChange() {
-        return usesChange;
-    }
+	public String getNotes() {
+		return notes;
+	}
 
-    public int getTotalUses() {
-        return totalUses + getUsesChange();
-    }
-    */
-    
-    public String getNotes() {
-        return notes;
-    }
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
 
-    public LocalDate getUsageDate() {
-        return usageDate;
-    }
+	public LocalDate getUsageDate() {
+		return usageDate;
+	}
 
-    //Setters
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setTotalUses(int totalUses) {
-        this.totalUses = totalUses;
-    }
-    
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-
-    public void setUsageDate(LocalDate usageDate) {
-        this.usageDate = usageDate;
-    }
-
-
-
+	public void setUsageDate(LocalDate usageDate) {
+		this.usageDate = usageDate;
+	}
 }

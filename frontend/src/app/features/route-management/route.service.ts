@@ -17,7 +17,7 @@ export interface ClimbRoute {
 @Injectable({ providedIn: 'root' })
 export class RouteService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:8080/api/routes';
+  private readonly apiUrl = '/api/routes';
 
   getRoutes(): Observable<ClimbRoute[]> {
     return this.http.get<ClimbRoute[]>(this.apiUrl);

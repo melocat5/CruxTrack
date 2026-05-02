@@ -19,8 +19,8 @@ export interface MorningTask {
 export class MorningCheckService {
   private readonly http = inject(HttpClient);
   
-  private readonly apiUrl = 'http://localhost:8080/api/morning-checks';
-  private readonly tasksUrl = 'http://localhost:8080/api/morning-tasks';
+  private readonly apiUrl = '/api/morning-checks';
+  private readonly tasksUrl = '/api/morning-tasks';
 
   getSubmissions(): Observable<MorningCheckSubmission[]> {
     return this.http.get<MorningCheckSubmission[]>(this.apiUrl);

@@ -40,6 +40,12 @@ public class AppUser {
 	@Column
 	private String lastName;
 
+	@Column
+	private String preferredName;
+
+	@Column(nullable = false)
+	private boolean active = true;
+
 	// CRUXTRACK: JPA REQUIRES A NO-ARG CONSTRUCTOR (IT CREATES OBJECTS FOR YOU)
 	protected AppUser() {
 	}
@@ -70,4 +76,10 @@ public class AppUser {
 
 	public String getLastName() { return lastName; }
 	public void setLastName(String lastName) { this.lastName = lastName; }
+
+	public String getPreferredName() { return preferredName; }
+	public void setPreferredName(String preferredName) { this.preferredName = preferredName; }
+
+	public boolean isActive() { return active; }
+	public void setActive(boolean active) { this.active = active; }
 }

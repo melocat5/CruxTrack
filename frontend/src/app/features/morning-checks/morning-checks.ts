@@ -9,8 +9,9 @@ import { AuthService } from '../../auth/auth.service';
 interface TaskItem {
   id?: number;
   name: string;
-  completed: boolean;
 }
+
+type EquipmentPresentChoice = '' | 'yes' | 'no';
 
 @Component({
   selector: 'app-morning-checks',
@@ -26,9 +27,12 @@ export class MorningChecks implements OnInit {
   cdr = inject(ChangeDetectorRef);
   platformId = inject(PLATFORM_ID);
 
-  tasks: TaskItem[] = []; // Now starts empty and loads from DB
-  newTaskName: string = ''; // Bound to the admin add task input
-  
+  tasks: TaskItem[] = [];
+  newTaskName: string = '';
+
+  /** Empty until the user selects Yes or No; submit is enabled once set. */
+  equipmentPresent: EquipmentPresentChoice = '';
+
   notes = '';
   inventoryItems: InventoryItem[] = [];
   submissions: MorningCheckSubmission[] = [];
@@ -38,15 +42,15 @@ export class MorningChecks implements OnInit {
     return user?.primaryRole?.toUpperCase() === 'ADMIN' || user?.roles?.includes('ADMIN') || false;
   }
 
-  get allChecked(): boolean {
-    return this.tasks.length > 0 && this.tasks.every(t => t.completed);
+  get canSubmitChecks(): boolean {
+    return this.equipmentPresent === 'yes' || this.equipmentPresent === 'no';
   }
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
-      this.loadTasks();
       this.loadInventory();
       if (this.isAdmin) {
+        this.loadTasks();
         this.loadSubmissions();
       }
     }
@@ -54,7 +58,7 @@ export class MorningChecks implements OnInit {
 
   loadTasks() {
     this.morningCheckService.getTasks().subscribe(data => {
-      this.tasks = data.map(t => ({ id: t.id, name: t.taskName, completed: false }));
+      this.tasks = data.map(t => ({ id: t.id, name: t.taskName }));
       this.cdr.detectChanges();
     });
   }
@@ -91,23 +95,33 @@ export class MorningChecks implements OnInit {
     });
   }
 
+  private buildSubmissionNotes(): string {
+    const answer = this.equipmentPresent === 'yes' ? 'Yes' : 'No';
+    let text = `All equipment present: ${answer}`;
+    const detail = this.notes.trim();
+    if (detail) {
+      text += '\n\n' + detail;
+    }
+    return text;
+  }
+
   submitForm() {
-    if (!this.allChecked) return;
-    
+    if (!this.canSubmitChecks) return;
+
     const user = this.auth.user();
     const submission = {
       timestamp: new Date().toISOString(),
-      notes: this.notes,
+      notes: this.buildSubmissionNotes(),
       submittedBy: user?.username || 'Unknown'
     };
 
     this.morningCheckService.submitCheck(submission).subscribe(() => {
-      this.tasks.forEach(t => t.completed = false);
+      this.equipmentPresent = '';
       this.notes = '';
       if (this.isAdmin) {
         this.loadSubmissions();
       }
-      alert('Morning checks submitted successfully!');
+      alert('Daily inventory check submitted successfully!');
       this.cdr.detectChanges();
     });
   }

@@ -6,7 +6,7 @@
 
 .content h1 {
   margin-top: 0;
-  color: #e65100; 
+  color: var(--crux-orange-heading); 
 }
 
 .split-layout {
@@ -44,6 +44,48 @@
   margin-bottom: 15px;
 }
 
+.equipment-check-intro {
+  margin-top: 0;
+}
+
+.field-label {
+  display: block;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 0.95em;
+}
+
+.equipment-select {
+  margin-bottom: 0;
+}
+
+.notes-hint {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.task-item-readonly {
+  flex-grow: 1;
+  font-size: 1.05em;
+  padding: 4px 0;
+}
+
+.action-button {
+  padding: 10px 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #f5f5f5;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.action-button:hover {
+  background-color: #e8e8e8;
+}
+
 /* Checklist form styling */
 .task-list {
   display: flex;
@@ -63,7 +105,7 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
-  accent-color: #ef6c00;
+  accent-color: var(--crux-orange-primary);
 }
 
 .styled-input {
@@ -77,7 +119,7 @@
 }
 
 .styled-input:focus {
-  border-color: #ef6c00; 
+  border-color: var(--crux-orange-primary); 
 }
 
 .full-width {
@@ -87,7 +129,7 @@
 }
 
 .primary-button {
-  background-color: #ef6c00; 
+  background-color: var(--crux-orange-primary); 
   color: white;
   padding: 12px 20px;
   border: none;
@@ -99,11 +141,11 @@
 }
 
 .primary-button:hover:not(:disabled) {
-  background-color: #e65100; 
+  background-color: var(--crux-orange-primary-hover); 
 }
 
 .primary-button:disabled {
-  background-color: #fce1cb;
+  background-color: var(--crux-orange-muted);
   color: #888;
   cursor: not-allowed;
 }

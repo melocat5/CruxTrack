@@ -1,5 +1,5 @@
-import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core'; 
-import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit, ChangeDetectorRef, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router'; 
 import { RopeService, Rope } from './rope.service';
@@ -14,14 +14,17 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class RopeLog implements OnInit {
   ropeService = inject(RopeService);
-  auth = inject(AuthService); 
-  cdr = inject(ChangeDetectorRef); 
-  
+  auth = inject(AuthService);
+  cdr = inject(ChangeDetectorRef);
+  platformId = inject(PLATFORM_ID);
+
   ropes: Rope[] = [];
   newRopeId: string = '';
 
   ngOnInit() {
-    this.loadRopes();
+    if (isPlatformBrowser(this.platformId)) {
+      this.loadRopes();
+    }
   }
 
   loadRopes() {

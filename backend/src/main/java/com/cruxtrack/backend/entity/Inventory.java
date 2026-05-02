@@ -1,5 +1,7 @@
 package com.cruxtrack.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,57 +9,62 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-//This creates the table for inventory. I am assuming this is specifically for things like pitons.
-
 @Entity
 @Table(name = "inventory")
 public class Inventory {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long itemId;
 
-    @Column(nullable = false)
-    private String itemName;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long itemId;
 
-    @Column(nullable = false)
-    private int quantity;
+	@Column(nullable = false)
+	private String itemName;
 
-    public Inventory() {
-    }
+	@Column(nullable = false)
+	private int quantity;
 
-    public Inventory(String itemName, int quantity) {
-        this.itemName = itemName;
-        this.quantity = quantity;
-    }
+	@Column
+	private String notes;
 
-    //Getters
+	public Inventory() {
+	}
 
-    public Long getItemId() {
-        return itemId;
-    }
+	public Inventory(String itemName, int quantity, String notes) {
+		this.itemName = itemName;
+		this.quantity = quantity;
+		this.notes = notes != null ? notes : "";
+	}
 
-    public String getItemName() {
-        return itemName;
-    }
+	@JsonProperty("id")
+	public Long getItemId() {
+		return itemId;
+	}
 
-    public int getQuantity() {
-        return quantity;
-    }
+	public void setItemId(Long itemId) {
+		this.itemId = itemId;
+	}
 
-    //Setters
+	public String getItemName() {
+		return itemName;
+	}
 
-    public void setItemId(Long itemId) {
-        this.itemId = itemId;
-    }
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
+	public int getQuantity() {
+		return quantity;
+	}
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 
+	public String getNotes() {
+		return notes;
+	}
 
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
 }
