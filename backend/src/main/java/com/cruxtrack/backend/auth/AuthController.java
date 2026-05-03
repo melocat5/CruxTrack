@@ -1,6 +1,7 @@
 package com.cruxtrack.backend.auth;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
@@ -20,6 +22,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.cruxtrack.backend.user.AppUser;
+import com.cruxtrack.backend.user.UserRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -30,9 +35,13 @@ public class AuthController {
 
 	private final AuthenticationManager authenticationManager;
 	private final SecurityContextRepository securityContextRepository = new HttpSessionSecurityContextRepository();
+	private final UserRepository userRepository;
+	private final PasswordEncoder passwordEncoder;
 
-	public AuthController(AuthenticationManager authenticationManager) {
+	public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository, PasswordEncoder passwordEncoder) {
 		this.authenticationManager = authenticationManager;
+		this.userRepository = userRepository;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	@PostMapping("/login")
@@ -70,6 +79,44 @@ public class AuthController {
 	public ResponseEntity<Void> logout(HttpServletRequest request, HttpServletResponse response) {
 		new SecurityContextLogoutHandler().logout(request, response, null);
 		return ResponseEntity.noContent().build();
+	}
+
+	// CRUXTRACK: NEW ENDPOINT FOR ADMIN PASSWORD RESET
+	@PostMapping("/admin-reset-password")
+	public ResponseEntity<?> resetPasswordViaAdmin(@RequestBody AdminPasswordResetRequest request) {
+		if (request == null || request.targetUsername() == null || request.adminUsername() == null ||
+			request.adminPassword() == null || request.newPassword() == null) {
+			return ResponseEntity.badRequest().body("Missing required fields.");
+		}
+
+		// 1. Fetch Admin
+		Optional<AppUser> adminOpt = userRepository.findByUsername(request.adminUsername());
+		if (adminOpt.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Admin authorization failed.");
+		}
+		AppUser adminUser = adminOpt.get();
+
+		// 2. Verify Admin Credentials & Role
+		if (!passwordEncoder.matches(request.adminPassword(), adminUser.getPassword())) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Admin authorization failed.");
+		}
+		if (!adminUser.getRole().name().equals("ADMIN")) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not an admin.");
+		}
+
+		// 3. Fetch Target User
+		Optional<AppUser> targetOpt = userRepository.findByUsername(request.targetUsername());
+		if (targetOpt.isEmpty()) {
+			return ResponseEntity.badRequest().body("Target user not found.");
+		}
+		AppUser targetUser = targetOpt.get();
+
+		// 4. Update and Save
+		targetUser.setPassword(passwordEncoder.encode(request.newPassword()));
+		userRepository.save(targetUser);
+
+		// Return a generic JSON success response
+		return ResponseEntity.ok().body("{\"success\": true}");
 	}
 
 	private static UserInfo toUserInfo(Authentication auth) {
