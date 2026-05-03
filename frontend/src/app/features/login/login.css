@@ -90,3 +90,60 @@ button:disabled {
   color: #b91c1c;
   font-size: 0.9rem;
 }
+
+/* Forgot Password link button */
+.link-button {
+  background: transparent;
+  color: var(--crux-orange-primary);
+  padding: 0;
+  margin-top: 0;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  text-align: center;
+  display: block;
+}
+
+.link-button:hover:not(:disabled) {
+  background: transparent;
+  color: var(--crux-orange-primary-hover);
+  box-shadow: none;
+}
+
+/* Forgot Password multi-step buttons */
+.btn-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.btn-group button {
+  flex: 1;
+  margin-top: 0;
+}
+
+.btn-secondary {
+  background-color: #f1f1f1;
+  color: #333;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: #e0e0e0;
+}
+
+.fp-instruction {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 1.25rem;
+  line-height: 1.4;
+}
+
+.fp-success {
+  color: #2e7d32;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}

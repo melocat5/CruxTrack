@@ -1,19 +1,85 @@
-<!-- CRUXTRACK: REACTIVE FORM — BOUND TO LOGIN.TS; SUBMIT CALLS THE REAL /API/AUTH/LOGIN ENDPOINT -->
 <div class="login-container">
   <h2>Welcome to CruxTrack!</h2>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div>
-      <label for="username">Username:</label>
-      <input id="username" type="text" formControlName="username" autocomplete="username" />
-    </div>
-    <div>
-      <label for="password">Password:</label>
-      <input id="password" type="password" formControlName="password" autocomplete="current-password" />
-    </div>
-    <button type="submit" [disabled]="loginForm.invalid || submitting">Log In</button>
-    <!-- CRUXTRACK: FILLED IN TYPESCRIPT WHEN LOGIN FAILS OR THE SERVER IS UNREACHABLE -->
-    @if (errorMessage) {
-      <p class="login-error">{{ errorMessage }}</p>
-    }
-  </form>
+
+  @if (!forgotPasswordMode) {
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="username">Username:</label>
+        <input id="username" type="text" formControlName="username" autocomplete="username" />
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input id="password" type="password" formControlName="password" autocomplete="current-password" />
+      </div>
+      <button type="submit" [disabled]="loginForm.invalid || submitting">Log In</button>
+      
+      <button type="button" class="link-button" (click)="toggleForgotPassword()">Forgot Password?</button>
+
+      @if (errorMessage) {
+        <p class="login-error">{{ errorMessage }}</p>
+      }
+    </form>
+  } @else {
+    <form [formGroup]="fpForm" (ngSubmit)="$event.preventDefault()">
+      <h3 style="margin-top: 0; color: #2c3e50;">Reset Password</h3>
+
+      @if (fpStep === 1) {
+        <p class="fp-instruction">Enter the username of the account that needs a password reset.</p>
+        <div>
+          <label for="targetUsername">Target Username:</label>
+          <input id="targetUsername" type="text" formControlName="targetUsername" />
+        </div>
+        <div class="btn-group">
+          <button type="button" class="btn-secondary" (click)="toggleForgotPassword()">Cancel</button>
+          <button type="button" [disabled]="!step1Valid" (click)="nextStep(2)">Next</button>
+        </div>
+      }
+
+      @if (fpStep === 2) {
+        <p class="fp-instruction">An Admin must authorize this password change.</p>
+        <div>
+          <label for="adminUsername">Admin Username:</label>
+          <input id="adminUsername" type="text" formControlName="adminUsername" autocomplete="off" />
+        </div>
+        <div>
+          <label for="adminPassword">Admin Password:</label>
+          <input id="adminPassword" type="password" formControlName="adminPassword" autocomplete="new-password" />
+        </div>
+        <div class="btn-group">
+          <button type="button" class="btn-secondary" (click)="nextStep(1)">Back</button>
+          <button type="button" [disabled]="!step2Valid" (click)="nextStep(3)">Authorize</button>
+        </div>
+      }
+
+      @if (fpStep === 3) {
+        <p class="fp-instruction">Enter the new password for <strong>{{ fpForm.get('targetUsername')?.value }}</strong>.</p>
+        <div>
+          <label for="newPassword">New Password:</label>
+          <input id="newPassword" type="password" formControlName="newPassword" />
+        </div>
+        <div>
+          <label for="confirmPassword">Confirm Password:</label>
+          <input id="confirmPassword" type="password" formControlName="confirmPassword" />
+        </div>
+        
+        @if (!passwordsMatch && fpForm.get('confirmPassword')?.value) {
+          <p class="login-error" style="margin-bottom: 0;">Passwords do not match.</p>
+        }
+
+        <div class="btn-group">
+          <button type="button" class="btn-secondary" (click)="nextStep(2)">Back</button>
+          <button type="button" [disabled]="!step3Valid || submitting" (click)="onResetPassword()">Reset Password</button>
+        </div>
+      }
+
+      @if (fpStep === 4) {
+        <p class="fp-success">{{ fpSuccessMessage }}</p>
+        <button type="button" (click)="toggleForgotPassword()" style="width: 100%;">Return to Login</button>
+      }
+
+      @if (fpErrorMessage) {
+        <p class="login-error" style="margin-top: 1rem;">{{ fpErrorMessage }}</p>
+      }
+    </form>
+  }
 </div>
